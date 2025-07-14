@@ -20,12 +20,12 @@ void Playlist::adicionarConteudo(Conteudo* conteudo) {
     conteudos.push_back(conteudo);
 }
 
-void Playlist::removerConteudo(Conteudo* conteudo){
-    auto it = find(conteudos.begin(), conteudos.end(), conteudo);
-    if (it != conteudos.end()) {
-        // Conteudo encontrado, removendo da playlist
-        conteudos.erase(it);
-    } else {
-        throw runtime_error("Conteudo nao encontrado na playlist.");
+void Playlist::removerConteudo(Conteudo* conteudo) {
+    for (size_t i = 0; i < conteudos.size(); ++i) {
+        if (conteudos[i] == conteudo) {
+            conteudos.erase(conteudos.begin() + i);
+            return;
+        }
     }
+    throw std::runtime_error("Conteudo nao foi encontrado dentro da playlist.");
 }
