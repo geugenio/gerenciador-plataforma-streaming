@@ -1,34 +1,32 @@
 #pragma once
 #include <iostream>
-#include <chrono>
 
 #include "Plano.h"
-
-using namespace std;
 
 class User{
     private:
         int id;
-        string nome;
-        string email;
-        string senha;
+        std::string nome;
+        std::string email;
+        std::string senha;
         Plano* planoAssinatura;
     public:
-        User(int id, string nome, string email, string senha, Plano* planoAssinatura);
-        User();
+        User(int id, const std::string& nome, const std::string& email, const std::string& senha, Plano* planoAssinatura);
+        User() = default;
 
         // Getter e Setter
         int getId() const;
-        string getNome() const;
-        string getEmail() const;
-        string getSenha() const;
+        std::string getNome() const;
+        std::string getEmail() const;
+        std::string getSenha() const;
         Plano* getPlanoAssinatura() const;
 
-        void setNome(string nome);
-        void setEmail(string email);
-        void setSenha(string senha);
+        void setNome(const std::string& nome);
+        void setEmail(const std::string& email);
+        void setSenha(const std::string& senha);
         void setPlanoAssinatura(Plano* plano);
 
         //Métodos
         void exibir() const;
+        
 };
