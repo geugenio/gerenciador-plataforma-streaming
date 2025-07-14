@@ -7,14 +7,14 @@
 
 class Playlist{
     private:
-    static int proxId;
+        static int proxId;
         int id;
-        string nome;
+        std::string nome;
         User* criador;
-        vector<Conteudo*> conteudos;
+        std::vector<Conteudo*> conteudos;
     public:
         Playlist();
-        Playlist(string nome, User* criador);
+        Playlist(std::string nome, User* criador);
         void adicionarConteudo(Conteudo* conteudo);
         void removerConteudo(Conteudo* conteudo);
 
