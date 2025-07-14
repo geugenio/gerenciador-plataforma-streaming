@@ -30,4 +30,6 @@ class Conteudo{
         virtual void exibir() const;
 
         //Getters e Setters
+        int getId() const;
+        string getTitulo() const;
 };

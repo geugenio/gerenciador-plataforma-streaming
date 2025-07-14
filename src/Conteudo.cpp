@@ -1,4 +1,6 @@
 #include "Conteudo.h"
+using namespace std;
+
 
 Conteudo::Conteudo(int id, string titulo, string sinopse, string diretor, vector<string> elenco, string genero, 
     string subgenero, int anoLançamento, string classificacao, float duracao){
@@ -29,4 +31,13 @@ void Conteudo::exibir() const {
     cout << "Ano de Lançamento: " << anoLançamento << endl;
     cout << "Classificacao: " << classificacao << endl;
     cout << "Duracao: " << duracao << " minutos" << endl;
+}
+
+
+string Conteudo::getTitulo() const{
+    return titulo;
+}
+
+int Conteudo::getId() const{
+    return id;
 }
