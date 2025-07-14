@@ -1,17 +1,19 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
 #include "Conteudo.h"
 #include "Playlist.h"
 
-using namespace std;
 
 class Catalogo{
     private:
-        vector<Conteudo*> conteudos;
+        std::vector<Conteudo*> conteudos;
+
     public:
         void adicionarConteudo(Conteudo* conteudo);
         Conteudo* buscarConteudoId(int id) const;
-        vector<Conteudo*> buscarConteudosPorTitulo(const string& titulo) const;
-        vector<Conteudo*> buscarConteudosPorGenero(const string& genero) const;
+        std::vector<Conteudo*> buscarConteudosPorTitulo(const std::string& titulo) const;
+        std::vector<Conteudo*> buscarConteudosPorGenero(const std::string& genero) const;
         void removerConteudo(int id);
 };
