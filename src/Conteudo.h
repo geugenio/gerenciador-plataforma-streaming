@@ -14,14 +14,14 @@ class Conteudo{
         vector<string> elenco;
         string genero;
         string subgenero;
-        int anoLançamento;
+        int anoLancamento;
         string classificacao;
         float duracao;
 
     public:
         // Construtores e destrutores
         Conteudo(int id, string titulo, string sinopse, string diretor, vector<string> elenco, 
-            string genero, string subgenero, int anoLançamento, string classificacao, float duracao);
+            string genero, string subgenero, int anoLancamento, string classificacao, float duracao);
         Conteudo();
 
         //Destrutor default

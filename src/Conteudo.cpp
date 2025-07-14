@@ -3,7 +3,7 @@ using namespace std;
 
 
 Conteudo::Conteudo(int id, string titulo, string sinopse, string diretor, vector<string> elenco, string genero, 
-    string subgenero, int anoLançamento, string classificacao, float duracao){
+    string subgenero, int anoLancamento, string classificacao, float duracao){
     this->id = id;
     this->titulo = titulo;
     this->sinopse = sinopse;
@@ -11,7 +11,7 @@ Conteudo::Conteudo(int id, string titulo, string sinopse, string diretor, vector
     this->elenco = elenco;
     this->genero = genero;
     this->subgenero = subgenero;
-    this->anoLançamento = anoLançamento;
+    this->anoLancamento = anoLancamento;
     this->classificacao = classificacao;
     this->duracao = duracao;
 }
@@ -28,7 +28,7 @@ void Conteudo::exibir() const {
     cout << endl;
     cout << "Genero: " << genero << endl;
     cout << "Subgenero: " << subgenero << endl;
-    cout << "Ano de Lançamento: " << anoLançamento << endl;
+    cout << "Ano de Lançamento: " << anoLancamento << endl;
     cout << "Classificacao: " << classificacao << endl;
     cout << "Duracao: " << duracao << " minutos" << endl;
 }
