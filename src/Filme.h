@@ -10,7 +10,7 @@ class Filme : public Conteudo{
     public:
         Filme();
         Filme(int id, string titulo, string sinopse, string diretor, vector<string> elenco, 
-              string genero, string subgenero, int anoLançamento, string classificacao, 
+              string genero, string subgenero, int anoLancamento, string classificacao, 
               float duracao, string premiacoes);
         void exibir() const override;
         string getPremiacoes() const;
