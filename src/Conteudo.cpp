@@ -41,3 +41,7 @@ string Conteudo::getTitulo() const{
 int Conteudo::getId() const{
     return id;
 }
+
+string Conteudo::getGenero() const{
+    return genero;
+}

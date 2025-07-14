@@ -13,10 +13,20 @@ vector<Conteudo*> Catalogo:: buscarConteudosPorTitulo(const string& titulo) cons
         if(conteudo->getTitulo().find(titulo) != std::string::npos){
             result.push_back(conteudo);
         }
-
-        return result;
     }
+    return result;
 }
+
+vector<Conteudo*> Catalogo::buscarConteudosPorGenero(const string& genero) const {
+    vector<Conteudo*> resultado;
+    for (const auto& conteudo : conteudos) {
+        if (conteudo->getGenero() == genero) {
+            resultado.push_back(conteudo);
+        }
+    }
+    return resultado;
+}
+
 
 
 Conteudo* Catalogo::buscarConteudoId(int id) const {

@@ -2,27 +2,25 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
-
 
 class Conteudo{
     protected:
         int id;
-        string titulo;
-        string sinopse;
-        string diretor;
-        vector<string> elenco;
-        string genero;
-        string subgenero;
+        std::string titulo;
+        std::string sinopse;
+        std::string diretor;
+        std::vector<std::string> elenco;
+        std::string genero;
+        std::string subgenero;
         int anoLancamento;
-        string classificacao;
+        std::string classificacao;
         float duracao;
 
     public:
         // Construtores e destrutores
-        Conteudo(int id, string titulo, string sinopse, string diretor, vector<string> elenco, 
-            string genero, string subgenero, int anoLancamento, string classificacao, float duracao);
-        Conteudo();
+        Conteudo(int id, std::string titulo, std::string sinopse, std::string diretor, std::vector<std::string> elenco, 
+            std::string genero, std::string subgenero, int anoLancamento, std::string classificacao, float duracao);
+        Conteudo() = default;
 
         //Destrutor default
         virtual ~Conteudo() = default;
@@ -31,5 +29,6 @@ class Conteudo{
 
         //Getters e Setters
         int getId() const;
-        string getTitulo() const;
+        std::string getTitulo() const;
+        std::string getGenero() const;
 };
