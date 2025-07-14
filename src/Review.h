@@ -1,12 +1,9 @@
-#ifndef REVIEW_H
-#define REVIEW_H
-
+#pragma once
 #include <string>
 #include <ctime>
 
 #include "User.h"
 #include "Conteudo.h"
-
 using namespace std;
 
 class Review {
@@ -34,5 +31,3 @@ public:
 
     void exibirDetalhes() const;
 };
-
-#endif
