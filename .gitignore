@@ -1,1 +1,5 @@
+#Ignorar pasta do vscode
 .vscode/
+
+#Ignorar arquivos compilados
+.exe
