@@ -2,7 +2,6 @@
 #include <iostream>
 #include "Conteudo.h"
 
-using namespace std;
 
 class Serie : public Conteudo{
     private:
@@ -10,9 +9,13 @@ class Serie : public Conteudo{
         int temporadas;
     public:
         Serie();
-        Serie(int id, string titulo, string sinopse, string diretor, vector<string> elenco, 
-              string genero, string subgenero, int anoLancamento, string classificacao, 
+        Serie(int id, std::string titulo, std::string sinopse, std::string diretor, std::vector<std::string> elenco, 
+              std::string genero, std::string subgenero, int anoLancamento, std::string classificacao, 
               float duracao, int episodiosTotais, int temporadas);
         void exibir() const override;
-        Serie *buscarConteudoId(int id) const override;
+        int getTemporadas() const;
+        int getEpisodiosTotais() const;
+
+        void setTemporadas(int temporadas);
+        void setEpisodiosTotais(int episodiosTotais);
 };
