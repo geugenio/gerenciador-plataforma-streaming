@@ -1,18 +1,21 @@
 #pragma once
 #include <iostream>
-
+#include "Review.h"
 #include "Plano.h"
 
 class User{
     private:
+        static int proxId; //id gerador automatico
         int id;
         std::string nome;
         std::string email;
         std::string senha;
         Plano* planoAssinatura;
+        std::vector<Review*> reviews;
         bool isAdmin = false;
+
     public:
-        User(int id, const std::string& nome, const std::string& email, const std::string& senha, Plano* planoAssinatura, bool isAdmin);
+        User(const std::string& nome, const std::string& email, const std::string& senha, Plano* planoAssinatura, bool isAdmin);
         User() = default;
 
         // Getter e Setter
@@ -22,7 +25,8 @@ class User{
         std::string getSenha() const;
         Plano* getPlanoAssinatura() const;
         bool eAdmin() const;
-
+        const std::vector<Review*>& getReviews() const;
+        
         void setNome(const std::string& nome);
         void setEmail(const std::string& email);
         void setSenha(const std::string& senha);
@@ -31,5 +35,6 @@ class User{
         //Métodos
         void exibir() const;
         bool autenticar(string e, string s) const;
+        void addReview(Review* review);
         
 };

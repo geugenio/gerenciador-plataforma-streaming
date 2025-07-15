@@ -2,9 +2,10 @@
 #include <iostream>
 
 using namespace std;
+int User::proxId = 1;
 
-User::User(int id, const string& nome, const string& email, const string& senha, Plano* planoAssinatura, bool isAdmin)
-: id(id), nome(nome), email(email), senha(senha), planoAssinatura(planoAssinatura), isAdmin(isAdmin){}
+User::User(const string& nome, const string& email, const string& senha, Plano* planoAssinatura, bool isAdmin)
+: id(proxId++), nome(nome), email(email), senha(senha), planoAssinatura(planoAssinatura), isAdmin(isAdmin){}
 
 // Getters
 int User::getId() const {
@@ -55,4 +56,12 @@ void User::exibir() const {
 
 bool User::autenticar(string e, string s)const{
     return email == e && senha == s;
+}
+
+void User::addReview(Review* review) {
+    reviews.push_back(review);
+}
+
+const vector<Review*>& User::getReviews() const {
+    return reviews;
 }
