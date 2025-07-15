@@ -8,6 +8,7 @@ using namespace std;
 
 class Review {
 private:
+    static int proxId; //id gerador automatico
     int idReview;
     User* criadorReview;
     Conteudo* conteudoAvaliado;
@@ -16,7 +17,7 @@ private:
     time_t dataReview;
 
 public:
-    Review(int idReview, User* criador, Conteudo* conteudo, int nota, const string& resenha);
+    Review(User* criador, Conteudo* conteudo, int nota, const string& resenha);
     ~Review() = default;
 
     int getIdReview() const;

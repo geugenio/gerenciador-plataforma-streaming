@@ -4,15 +4,17 @@
 #include <ctime>
 
 using namespace std;
+int Review::proxId = 1;
 
-Review::Review(int idReview, User* criador, Conteudo* conteudo, int estrela, const string& resenha)
-    : idReview(idReview), criadorReview(criador), conteudoAvaliado(conteudo), resenha(resenha) {
-        if (estrela >= 0 && estrela <= 5) {
-            this-> nota = estrela;
-        } else {
-            cerr << "Nota inválida! Definindo nota para 0." << endl;
-            this-> nota = 0;
-        }
+Review::Review(User* criador, Conteudo* conteudo, int estrela, const string& resenha)
+    : idReview(proxId++), criadorReview(criador), conteudoAvaliado(conteudo), resenha(resenha) 
+{
+    if (estrela >= 0 && estrela <= 5) {
+        this->nota = estrela;
+    } else {
+        cerr << "Nota inválida! Definindo nota para 0." << endl;
+        this->nota = 0;
+    }
     this->dataReview = time(0);
 }
 
