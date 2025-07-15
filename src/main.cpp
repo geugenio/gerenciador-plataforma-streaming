@@ -17,8 +17,6 @@ using namespace std;
 //prototipo
 void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 
-
-void menuInicial(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 void menuUser(User& usuario, Catalogo& catalogo);
 void menuAdmin(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 
@@ -131,10 +129,8 @@ int main(){
     cout << "||         GERENCIAMENTO DE STREAMING         ||" << endl;
     cout << "===============================================" << endl;
 
+    menuInicial(catalogo, usuarios);
 
-
-
-    
     return 0;
 }
 
@@ -180,4 +176,74 @@ void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios){
     //id, nome, email, senha, planoAssinatura, isAdmin
     usuarios.push_back(make_unique<User>(1, "admin", "admin@gmail.com", "admin123", nullptr, true));
 
+}
+
+void menuInicial(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios) {
+    int opc;
+    do {
+        exibirMenuLogin();
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 2);
+        switch (opc) {
+            case 1: { // Entrar
+                User* usuario = autenticarUsuario(usuarios);
+                if (usuario) {
+                    if (usuario->eAdmin()) {
+                        menuAdmin(catalogo, usuarios);
+                    } else {
+                        menuUser(*usuario, catalogo);
+                    }
+                } else {
+                    cout << "Email ou senha incorretos." << endl;
+                }
+                break;
+            }
+            case 2: // Cadastrar
+                cadastrarUsuario(usuarios);
+                break;
+            case 0: // Sair
+                cout << "Saindo do programa..." << endl;
+                break;
+        }
+    } while (opc != 0);
+}
+
+void cadastrarUsuario(vector<unique_ptr<User>>& usuarios) {
+    string nome = lerString("Digite seu nome:");
+    string email = lerString("Digite seu email:");
+    string senha = lerString("Digite sua senha:");
+
+    cout << "Escolha um plano:" << endl;
+    cout << "1. Simples (SD, 1 dispositivo)" << endl;
+    cout << "2. Padrao (HD, 2 dispositivos)" << endl;
+    cout << "3. Premium (4K, 4 dispositivos)" << endl;
+    int planoOpc = lerNumIntervalo("Opcao:", 1, 3);
+
+    Plano* planoAssinatura = nullptr;
+    switch (planoOpc) {
+        case 1: planoAssinatura = const_cast<Plano*>(&Plano::getSimples()); break;
+        case 2: planoAssinatura = const_cast<Plano*>(&Plano::getPadrao()); break;
+        case 3: planoAssinatura = const_cast<Plano*>(&Plano::getPremium()); break;
+    }
+
+    int id = usuarios.size() + 1;
+    usuarios.push_back(make_unique<User>(id, nome, email, senha, planoAssinatura, false));
+    cout << "Usuario cadastrado com sucesso!" << endl;
+}
+
+User* autenticarUsuario(const vector<unique_ptr<User>>& usuarios) {
+    string email = lerString("Digite seu email:");
+    string senha = lerString("Digite sua senha:");
+    for (const auto& user : usuarios) {
+        if (user->autenticar(email, senha)) {
+            return user.get();
+        }
+    }
+    return nullptr;
+}
+
+string lerString(string msg) {
+    string in;
+    cout << msg << endl;
+    getline(cin, in);
+    return in;
 }
