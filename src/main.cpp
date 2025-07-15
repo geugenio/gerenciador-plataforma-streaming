@@ -39,7 +39,6 @@ int lerNum(string msg){
     return num;
 }
 
-
 int lerNumIntervalo(string msg, int min, int max){
     int num;
     do{
@@ -63,15 +62,42 @@ void exibirMenuLogin(){
     cout << "+===+==========================++"<<endl;
 }
 
-void exibirMenuConteudo(){
+//Primeira tela de menu pro usuário comum (não admin)
+void exibirMenuConteudoUsuario(){
     cout << "++=============================++"<<endl;
     cout << "||          CATALOGO           ||" << endl;
     cout << "++==+==========================++"<<endl;
     cout << "| 1 | Listar todos             ||" << endl;
     cout << "| 2 | Buscar por titulo        ||" << endl;
     cout << "| 3 | Buscar por genero        ||" << endl;
-    cout << "| 4 | Detalhe de conteudo      ||" << endl;
+    cout << "| 4 | Ver dtalhes/reviews      ||" << endl;
+    cout << "| 5 | Minhas playlists         ||" << endl; //exibe playlists
+    cout << "| 6 | Minhas reviews           ||" << endl; //exibe todas as reviews associadas ao usuário, em ordem cronologica (mais novas primeiro)
     cout << "| 0 | Voltar                   ||" << endl;
+    cout << "+===+==========================++"<<endl;
+}
+
+//Primeira tela de menu pra administrador do sistema
+void exibirMenuConteudoAdmin(){
+    cout << "++=============================++"<<endl;
+    cout << "||          CATALOGO           ||" << endl;
+    cout << "++==+==========================++"<<endl;
+    cout << "| 1 | Adicionar conteudo       ||" << endl;
+    cout << "| 2 | Remover conteudo         ||" << endl;
+    cout << "| 3 | Adicionar usuario        ||" << endl;
+    cout << "| 4 | Remover usuario          ||" << endl;
+    cout << "| 0 | Voltar                   ||" << endl;
+    cout << "+===+==========================++"<<endl;
+}
+
+void menuConteudo(){
+    cout << "++=============================++" << endl;
+    cout << "||   DETALHES DO CONTEÚDO     ||" << endl;
+    cout << "++==+=========================++" << endl;
+    cout << "| 1 | Adicionar review        ||" << endl; //adiciona uma nova review
+    cout << "| 2 | ler reviews             ||" << endl; //exibe todas as avaliações em uma lista
+    cout << "| 3 | Adicionar a playlist    ||" << endl; //(aqui pode exibir o nome e o id das playlists do usuario, ai pergunta qual q quer inserir)
+    cout << "| 0 | Voltar                  ||" << endl;
     cout << "+===+==========================++"<<endl;
 }
 
@@ -104,6 +130,8 @@ int main(){
     cout << "||           BEM VINDO AO SISTEMA DE          ||" << endl;
     cout << "||         GERENCIAMENTO DE STREAMING         ||" << endl;
     cout << "===============================================" << endl;
+
+
 
 
     
