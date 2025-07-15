@@ -13,6 +13,7 @@ class Filme : public Conteudo{
               string genero, string subgenero, int anoLancamento, string classificacao, 
               float duracao, string premiacoes);
         void exibir() const override;
+        
         string getPremiacoes() const;
         void setPremiacoes(string premiacoes);
 };
