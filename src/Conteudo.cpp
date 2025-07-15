@@ -45,3 +45,6 @@ int Conteudo::getId() const{
 string Conteudo::getGenero() const{
     return genero;
 }
+int Conteudo::getAnoLancamento() const {
+    return anoLancamento;
+}

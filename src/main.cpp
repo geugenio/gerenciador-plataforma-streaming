@@ -75,6 +75,24 @@ void exibirMenuConteudo(){
     cout << "+===+==========================++"<<endl;
 }
 
+void exibirTodosConteudos(const Catalogo& catalogo){
+    const vector<Conteudo*>& conteudos = catalogo.getConteudos();
+    cout << "++===============================++"<<endl;
+    cout << "||       LISTA DE CONTEUDOS      ||" << endl;
+    cout << "++==+============================++"<<endl;
+    
+    if(conteudos.empty()){
+        cout << "Nenhum conteudo cadastrado." << endl;
+        return;
+    }
+    for(const auto& conteudo : conteudos){
+        cout << "ID: " << conteudo->getId() << endl;
+        cout << "Titulo: " << conteudo->getTitulo() << endl;
+        cout<< "Ano: " << conteudo->getAnoLancamento() << endl;
+        cout << "--------------------------------" << endl;
+    }
+}
+
 
 using namespace std;
 int main(){

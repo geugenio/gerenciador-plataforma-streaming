@@ -31,4 +31,5 @@ class Conteudo{
         int getId() const;
         std::string getTitulo() const;
         std::string getGenero() const;
+        int getAnoLancamento() const;
 };
