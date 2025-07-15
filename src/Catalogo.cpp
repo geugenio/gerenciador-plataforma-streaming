@@ -37,3 +37,7 @@ Conteudo* Catalogo::buscarConteudoId(int id) const {
     }
     return nullptr;
 }
+
+vector<Conteudo*> Catalogo::getConteudos() const {
+    return conteudos;
+}
