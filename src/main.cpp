@@ -80,7 +80,7 @@ void exibirMenuConteudoUsuario(){
 //Primeira tela de menu pra administrador do sistema
 void exibirMenuConteudoAdmin(){
     cout << "++=============================++"<<endl;
-    cout << "||          CATALOGO           ||" << endl;
+    cout << "||        ADMINISTRACAO        ||" << endl;
     cout << "++==+==========================++"<<endl;
     cout << "| 1 | Adicionar conteudo       ||" << endl;
     cout << "| 2 | Remover conteudo         ||" << endl;
