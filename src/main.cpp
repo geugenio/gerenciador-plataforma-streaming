@@ -6,13 +6,18 @@
 #include "Filme.h"
 #include "Serie.h"
 #include "Plano.h"
+#include "Review.h"
 
 #include <vector>
 #include <limits>
 #include <memory>
 #include <string>
+#include <algorithm>
 
 using namespace std;
+
+vector<unique_ptr<Review>> reviews;
+vector<unique_ptr<Playlist>> playlists;
 
 //prototipo
 void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
@@ -90,7 +95,7 @@ void exibirMenuConteudoAdmin(){
 
 void menuConteudo(){
     cout << "++=============================++" << endl;
-    cout << "||   DETALHES DO CONTEÚDO     ||" << endl;
+    cout << "||    DO CONTEÚDO     ||" << endl;
     cout << "++==+=========================++" << endl;
     cout << "| 1 | Adicionar review        ||" << endl; //adiciona uma nova review
     cout << "| 2 | ler reviews             ||" << endl; //exibe todas as avaliações em uma lista
@@ -246,4 +251,119 @@ string lerString(string msg) {
     cout << msg << endl;
     getline(cin, in);
     return in;
+}
+
+void menuUser(User& usuario, Catalogo& catalogo) {
+    int opc;
+    do {
+        exibirMenuConteudoUsuario();
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 6);
+        switch (opc) {
+            case 1: { // Listar todos
+                cout << "\n--- Lista de Todos os Conteudos ---" << endl;
+                for (const auto& c : catalogo.getConteudos()) { c->exibir(); cout << "-----\n"; }
+                break;
+            }
+            case 2: { // Buscar por titulo
+                string titulo = lerString("Digite o titulo:");
+                auto resultados = catalogo.buscarConteudosPorTitulo(titulo);
+                for (const auto& c : resultados) { c->exibir(); cout << "-----\n"; }
+                break;
+            }
+            case 3: { // Buscar por genero
+                string genero = lerString("Digite o genero:");
+                auto resultados = catalogo.buscarConteudosPorGenero(genero);
+                for (const auto& c : resultados) { c->exibir(); cout << "-----\n"; }
+                break;
+            }
+            case 4: { // Ver detalhes/reviews
+                int id = lerNum("Digite o ID do conteudo para ver os detalhes:");
+                Conteudo* c = catalogo.buscarConteudoId(id);
+                if (c) {
+                    menuDetalhesConteudo(usuario, c, catalogo);
+                } else {
+                    cout << "Conteudo nao encontrado." << endl;
+                }
+                break;
+            }
+            case 5: { // Minhas playlists
+                cout << "\n--- Minhas Playlists ---" << endl;
+                for (const auto& p : playlists) {
+                    // Nota: A classe Playlist precisa de um getCriador()
+                    // p->exibir(); // A classe Playlist precisaria de um método exibir()
+                }
+                cout << "Funcionalidade de Playlist ainda em desenvolvimento." << endl;
+                break;
+            }
+            case 6: { // Minhas reviews
+                cout << "\n--- Minhas Reviews ---" << endl;
+                bool encontrou = false;
+                for (const auto& r : reviews) {
+                    if (r->getCriadorReview()->getId() == usuario.getId()) {
+                        r->exibirDetalhes();
+                        encontrou = true;
+                    }
+                }
+                if (!encontrou) {
+                    cout << "Voce ainda nao fez nenhuma review." << endl;
+                }
+                break;
+            }
+            case 0: cout << "Deslogando..." << endl; break;
+        }
+    } while (opc != 0);
+}
+
+void menuAdmin(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios) {
+    int opc;
+    do {
+        exibirMenuConteudoAdmin();
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
+        switch (opc) {
+            case 1: { // Adicionar conteudo
+                int tipo = lerNumIntervalo("Adicionar (1) Filme ou (2) Serie?", 1, 2);
+                int id = catalogo.getConteudos().back()->getId() + 1;
+                string titulo = lerString("Titulo:");
+                string sinopse = lerString("Sinopse:");
+                string diretor = lerString("Diretor:");
+                string genero = lerString("Genero:");
+                string subgenero = lerString("Subgenero:");
+                int ano = lerNum("Ano de Lancamento:");
+                string classificacao = lerString("Classificacao:");
+                float duracao = stof(lerString("Duracao (minutos):"));
+
+                if (tipo == 1) { /* Filme */ } else { /* Serie */ }
+                catalogo.adicionarConteudo(new Filme(id, titulo, sinopse, diretor, {}, genero, subgenero, ano, classificacao, duracao, ""));
+                cout << "Conteudo adicionado com sucesso!" << endl;
+                break;
+            }
+            case 2: { // Remover conteudo
+                int id = lerNum("Digite o ID do conteudo a ser removido:");
+                catalogo.removerConteudo(id);
+                break;
+            }
+            case 3: { // Adicionar usuario
+                cadastrarUsuario(usuarios);
+                break;
+            }
+            case 4: { // Remover usuario
+                cout << "\n--- Lista de Usuarios ---" << endl;
+                for(const auto& u : usuarios) {
+                    cout << "ID: " << u->getId() << " | Nome: " << u->getNome() << " | Email: " << u->getEmail() << endl;
+                }
+                int id = lerNum("Digite o ID do usuario a ser removido:");
+                auto it = remove_if(usuarios.begin(), usuarios.end(), [id](const unique_ptr<User>& u){
+                    return u->getId() == id;
+                });
+                if (it != usuarios.end()) {
+                    usuarios.erase(it, usuarios.end());
+                    cout << "Usuario removido com sucesso." << endl;
+                } else {
+                    cout << "Usuario nao encontrado." << endl;
+                }
+                break;
+            }
+            case 0: cout << "Deslogando..." << endl; break;
+        }
+    } while (opc != 0);
 }
