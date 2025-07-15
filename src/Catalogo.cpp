@@ -1,10 +1,28 @@
 #include "Catalogo.h"
 #include <vector>
+#include <algorithm> // std::remove_if
 
 using namespace std;
 
 void Catalogo::adicionarConteudo(Conteudo* conteudo) {
     conteudos.push_back(conteudo);
+}
+
+void Catalogo::removerConteudo(int id) {
+    auto it = std::remove_if(conteudos.begin(), conteudos.end(), [id](const Conteudo* c) {
+        if (c->getId() == id) {
+            delete c;
+            return true;
+        }
+        return false;
+    });
+
+    if (it != conteudos.end()) {
+        conteudos.erase(it, conteudos.end());
+        cout << "Conteudo removido com sucesso." << endl;
+    } else {
+        cout << "Conteudo com o ID especificado nao foi encontrado." << endl;
+    }
 }
 
 vector<Conteudo*> Catalogo:: buscarConteudosPorTitulo(const string& titulo) const{
