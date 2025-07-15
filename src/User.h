@@ -10,8 +10,9 @@ class User{
         std::string email;
         std::string senha;
         Plano* planoAssinatura;
+        bool isAdmin = false;
     public:
-        User(int id, const std::string& nome, const std::string& email, const std::string& senha, Plano* planoAssinatura);
+        User(int id, const std::string& nome, const std::string& email, const std::string& senha, Plano* planoAssinatura, bool isAdmin);
         User() = default;
 
         // Getter e Setter
@@ -20,6 +21,7 @@ class User{
         std::string getEmail() const;
         std::string getSenha() const;
         Plano* getPlanoAssinatura() const;
+        bool eAdmin() const;
 
         void setNome(const std::string& nome);
         void setEmail(const std::string& email);
@@ -28,5 +30,6 @@ class User{
 
         //Métodos
         void exibir() const;
+        bool autenticar(string e, string s) const;
         
 };
