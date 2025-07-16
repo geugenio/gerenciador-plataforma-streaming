@@ -12,7 +12,7 @@ class Catalogo{
 
     public:
         ~Catalogo();
-        std::vector<Conteudo*> getConteudos() const;
+        const std::vector<Conteudo*>& getConteudos() const;
         void adicionarConteudo(Conteudo* conteudo);
         Conteudo* buscarConteudoId(int id) const;
         std::vector<Conteudo*> buscarConteudosPorTitulo(const std::string& titulo) const;

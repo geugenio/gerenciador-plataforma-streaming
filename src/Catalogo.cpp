@@ -15,16 +15,17 @@ void Catalogo::adicionarConteudo(Conteudo* conteudo) {
 }
 
 void Catalogo::removerConteudo(int id) {
-    auto it = std::remove_if(conteudos.begin(), conteudos.end(), [id](const Conteudo* c) {
-        if (c->getId() == id) {
-            delete c;
-            return true;
+    bool encontrou = false;
+    for (size_t i = 0; i < conteudos.size(); ) {
+        if (conteudos[i]->getId() == id) {
+            delete conteudos[i];
+            conteudos.erase(conteudos.begin() + i);
+            encontrou = true;
+        } else {
+            ++i;
         }
-        return false;
-    });
-
-    if (it != conteudos.end()) {
-        conteudos.erase(it, conteudos.end());
+    }
+    if (encontrou) {
         cout << "Conteudo removido com sucesso." << endl;
     } else {
         cout << "Conteudo com o ID especificado nao foi encontrado." << endl;
@@ -62,6 +63,6 @@ Conteudo* Catalogo::buscarConteudoId(int id) const {
     return nullptr;
 }
 
-vector<Conteudo*> Catalogo::getConteudos() const {
+const vector<Conteudo*>& Catalogo::getConteudos() const {
     return conteudos;
 }

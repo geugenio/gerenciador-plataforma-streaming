@@ -1,4 +1,7 @@
-#include "utils.h"
+#include "Utils.h"
+#include <vector>
+#include <memory>
+
 
 int lerNum(string msg){
     string in;
@@ -165,23 +168,23 @@ void editarPerfilUsuario(User& usuario) {
 
 // funções de inicialização e gerenciamento
 void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios){
-    catalogo.adicionarConteudo(new Filme(proximoConteudoId++, "Spider-Man 2", "Cansado de ser o Homem-Aranha, Peter Parker tenta equilibrar sua vida pessoal e suas responsabilidades de herói enquanto enfrenta o vilão Dr. Octopus.",
+    catalogo.adicionarConteudo(new Filme("Spider-Man 2", "Cansado de ser o Homem-Aranha, Peter Parker tenta equilibrar sua vida pessoal e suas responsabilidades de herói enquanto enfrenta o vilão Dr. Octopus.",
         "Sam Raimi", vector<string>{"Tobey Maguire", "Kirsten Dunst", "Alfred Molina"}, "Ação", "Super-herói", 2004, "PG-13", 127.0f, "Oscar de Melhor Efeitos Visuais"));
-    catalogo.adicionarConteudo(new Filme(proximoConteudoId++, "Jurassic Park", "Um parque temático com dinossauros clonados se torna um pesadelo quando as criaturas escapam.",
+    catalogo.adicionarConteudo(new Filme("Jurassic Park", "Um parque temático com dinossauros clonados se torna um pesadelo quando as criaturas escapam.",
         "Steven Spielberg", vector<string>{"Sam Neill", "Laura Dern", "Jeff Goldblum"}, "Aventura", "Ficção Científica", 1993, "PG-13", 127.0f, "Oscar de Melhor Som, Melhor Edição de Som, Melhores Efeitos Visuais"));
-    catalogo.adicionarConteudo(new Filme(proximoConteudoId++, "Pulp Fiction", "A trama entrelaça várias histórias de criminosos em Los Angeles.",
+    catalogo.adicionarConteudo(new Filme("Pulp Fiction", "A trama entrelaça várias histórias de criminosos em Los Angeles.",
         "Quentin Tarantino", vector<string>{"John Travolta", "Uma Thurman", "Samuel L. Jackson"}, "Crime", "Drama", 1994, "R", 154.0f, "Oscar de Melhor Roteiro Original"));
-    catalogo.adicionarConteudo(new Filme(proximoConteudoId++, "Enigma de Outro Mundo", "Em uma base na Antártida, uma equipe de pesquisadores enfrenta uma entidade alienígena capaz de imitar qualquer ser vivo.",
+    catalogo.adicionarConteudo(new Filme("Enigma de Outro Mundo", "Em uma base na Antártida, uma equipe de pesquisadores enfrenta uma entidade alienígena capaz de imitar qualquer ser vivo.",
         "John Carpenter", vector<string>{"Kurt Russell", "Wilford Brimley", "Keith David"}, "Terror", "Ficção Científica", 1982, "R", 109.0f, "Indicado ao Saturn Award de Melhor Filme de Terror"));
-    catalogo.adicionarConteudo(new Filme(proximoConteudoId++, "Os Caçadores da Arca Perdida", "O arqueólogo Indiana Jones enfrenta nazistas em busca da Arca da Aliança, um artefato bíblico de imenso poder.",
+    catalogo.adicionarConteudo(new Filme("Os Caçadores da Arca Perdida", "O arqueólogo Indiana Jones enfrenta nazistas em busca da Arca da Aliança, um artefato bíblico de imenso poder.",
         "Steven Spielberg", vector<string>{"Harrison Ford", "Karen Allen", "Paul Freeman"}, "Aventura", "Ação", 1981, "PG", 115.0f, "Oscar de Melhor Direção de Arte, Melhor Som, Melhor Edição, Melhores Efeitos Visuais"));
-    catalogo.adicionarConteudo(new Filme(proximoConteudoId++, "Indiana Jones e o Templo da Perdição", "Indiana Jones se envolve em uma missão para recuperar uma pedra sagrada e enfrenta uma seita secreta na Índia.",
+    catalogo.adicionarConteudo(new Filme("Indiana Jones e o Templo da Perdição", "Indiana Jones se envolve em uma missão para recuperar uma pedra sagrada e enfrenta uma seita secreta na Índia.",
         "Steven Spielberg", vector<string>{"Harrison Ford", "Kate Capshaw", "Ke Huy Quan"}, "Aventura", "Ação", 1984, "PG", 118.0f, "Oscar de Melhores Efeitos Visuais"));
-    catalogo.adicionarConteudo(new Filme(proximoConteudoId++, "Indiana Jones e a Última Cruzada","Indiana Jones parte em busca do Santo Graal ao lado de seu pai, enfrentando nazistas e perigos mortais.",
+    catalogo.adicionarConteudo(new Filme("Indiana Jones e a Última Cruzada","Indiana Jones parte em busca do Santo Graal ao lado de seu pai, enfrentando nazistas e perigos mortais.",
         "Steven Spielberg", vector<string>{"Harrison Ford", "Sean Connery", "Denholm Elliott"}, "Aventura", "Ação", 1989, "PG-13", 127.0f, "Oscar de Melhor Edição de Som"));
-    catalogo.adicionarConteudo(new Filme(proximoConteudoId++, "A Viagem de Chihiro", "Chihiro, uma garota de 10 anos, entra em um mundo mágico e precisa encontrar coragem para salvar seus pais transformados em porcos.",
+    catalogo.adicionarConteudo(new Filme("A Viagem de Chihiro", "Chihiro, uma garota de 10 anos, entra em um mundo mágico e precisa encontrar coragem para salvar seus pais transformados em porcos.",
         "Hayao Miyazaki", vector<string>{"Rumi Hiiragi", "Miyu Irino", "Mari Natsuki"}, "Animação", "Fantasia", 2001, "Livre", 125.0f, "Oscar de Melhor Filme de Animação"));
-    catalogo.adicionarConteudo(new Filme(proximoConteudoId++, "O Serviço de Entregas da Kiki", "A jovem bruxa Kiki parte para a cidade grande para iniciar seu serviço de entregas enquanto aprende a lidar com a responsabilidade e a autoconfiança.",
+    catalogo.adicionarConteudo(new Filme("O Serviço de Entregas da Kiki", "A jovem bruxa Kiki parte para a cidade grande para iniciar seu serviço de entregas enquanto aprende a lidar com a responsabilidade e a autoconfiança.",
         "Hayao Miyazaki", vector<string>{"Minami Takayama", "Rei Sakuma", "Kappei Yamaguchi"}, "Animação", "Fantasia", 1989, "Livre", 103.0f, "Indicado ao Prêmio Anime Grand Prix de Melhor Filme"));
     //Series (id, titulo, sinopse, diretor, elenco, genero, subgenero, anoLancamento, classificacao, duracao, episodiosTotais, temporadas)
     catalogo.adicionarConteudo(new Serie("Breaking Bad", "Um professor de química se torna fabricante de metanfetamina após ser diagnosticado com câncer.",
