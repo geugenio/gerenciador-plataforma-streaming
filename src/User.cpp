@@ -5,7 +5,9 @@
 #include "Review.h"
 #include "Playlist.h"
 #include "Conteudo.h"
+#include "Utils.h"
 #include <iostream>
+
 
 
 

@@ -2,6 +2,9 @@
 #include <iostream>
 #include "Plano.h"
 #include <vector>
+#include <memory>
+
+
 class Conteudo;
 class Review;
 class Playlist;
@@ -44,6 +47,6 @@ class User{
         void removerPlaylistPorId(int idPlaylist);
         const std::vector<Playlist*>& getPlaylists() const;
         Review* buscarReviewPorConteudo(Conteudo* conteudo) const;
-        User* autenticarUsuario(const std::vector<unique_ptr<User>>& usuarios);
-        void cadastrarUsuario(std::vector<unique_ptr<User>>& usuarios);
+        User* autenticarUsuario(const std::vector<std::unique_ptr<User>>& usuarios);
+        void cadastrarUsuario(std::vector<std::unique_ptr<User>>& usuarios);
 };
