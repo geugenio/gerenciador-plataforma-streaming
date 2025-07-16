@@ -15,6 +15,13 @@
 
 using namespace std;
 
+extern int proximoConteudoId;
+
+class Review;
+class Playlist;
+extern std::vector<std::unique_ptr<Review>> reviews;
+extern std::vector<std::unique_ptr<Playlist>> playlists;
+
 int lerNum(string msg);
 int lerNumIntervalo(string msg, int min, int max);
 string lerString(string msg);
@@ -35,3 +42,6 @@ void menuInicial(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 void menuUser(User& usuario, Catalogo& catalogo);
 void menuAdmin(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 void menuConteudo(Conteudo& conteudo, User& usuario);
+
+User* autenticarUsuario(const std::vector<std::unique_ptr<User>>& usuarios);
+void cadastrarUsuario(std::vector<std::unique_ptr<User>>& usuarios);

@@ -34,6 +34,15 @@ class Conteudo{
         std::string getGenero() const;
         int getAnoLancamento() const;
         const std::vector<Review*>& getReviews() const;
+        void setTitulo(const std::string& titulo);
+        void setSinopse(const std::string& sinopse);
+        void setDiretor(const std::string& diretor);
+        void setElenco(const std::vector<std::string>& elenco); // Pode ser mais complexo para editar um a um
+        void setGenero(const std::string& genero);
+        void setSubgenero(const std::string& subgenero);
+        void setAnoLancamento(int anoLancamento);
+        void setClassificacao(const std::string& classificacao);
+        void setDuracao(float duracao);
 
         // Métodos
         virtual void exibir() const;

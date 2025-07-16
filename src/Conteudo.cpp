@@ -53,6 +53,35 @@ void Conteudo::addReview(Review* review) {
 const std::vector<Review*>& Conteudo::getReviews() const {
     return reviews;
 }
+
+void Conteudo::setTitulo(const std::string& titulo) {
+    this->titulo = titulo;
+}
+void Conteudo::setSinopse(const std::string& sinopse) {
+    this->sinopse = sinopse;
+}
+void Conteudo::setDiretor(const std::string& diretor) {
+    this->diretor = diretor;
+}
+void Conteudo::setElenco(const std::vector<std::string>& elenco) {
+    this->elenco = elenco; // Uma implementação mais robusta pode permitir adicionar/remover um por um.
+}
+void Conteudo::setGenero(const std::string& genero) {
+    this->genero = genero;
+}
+void Conteudo::setSubgenero(const std::string& subgenero) {
+    this->subgenero = subgenero;
+}
+void Conteudo::setAnoLancamento(int anoLancamento) {
+    this->anoLancamento = anoLancamento;
+}
+void Conteudo::setClassificacao(const std::string& classificacao) {
+    this->classificacao = classificacao;
+}
+void Conteudo::setDuracao(float duracao) {
+    this->duracao = duracao;
+}
+
 void Conteudo::exibirReviews() const{
     if(reviews.empty()){
         cout << "Nenhuma review cadastrada para este conteudo." << endl;
