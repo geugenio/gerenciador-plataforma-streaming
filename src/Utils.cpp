@@ -1,5 +1,4 @@
 #include "utils.h"
-extern int proximoConteudoId;
 
 int lerNum(string msg){
     string in;
