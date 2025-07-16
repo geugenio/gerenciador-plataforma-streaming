@@ -19,8 +19,9 @@ using namespace std;
 vector<unique_ptr<Review>> reviews;
 vector<unique_ptr<Playlist>> playlists;
 
-//prototipo
+//prototipos das funções
 void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
+void menuInicial(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 void menuUser(User& usuario, Catalogo& catalogo);
 void menuAdmin(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 void menuConteudo(Conteudo& conteudo, User& usuario);
@@ -28,6 +29,7 @@ User* autenticarUsuario(const vector<unique_ptr<User>>& usuarios);
 void cadastrarUsuario(vector<unique_ptr<User>>& usuarios);
 int lerNum(string msg);
 int lerNumIntervalo(string msg, int min, int max);
+string lerString(string msg);
 
 void exibirMenuLogin(){
     cout << "++=============================++"<<endl;
@@ -145,6 +147,14 @@ int lerNumIntervalo(string msg, int min, int max){
     return num;
 }
 
+string lerString(string msg) {
+    string in;
+    cout << msg << endl;
+    getline(cin, in);
+    return in;
+}
+
+
 void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios){
     //Filmes (id, titulo, sinopse, diretor, elenco, genero, subgenero, anoLancamento, classificacao, duracao, premiacoes)
     catalogo.adicionarConteudo(new Filme("Spider-Man 2", "Cansado de ser o Homem-Aranha, Peter Parker tenta equilibrar sua vida pessoal e suas responsabilidades de herói enquanto enfrenta o vilão Dr. Octopus.", 
@@ -232,8 +242,7 @@ void cadastrarUsuario(vector<unique_ptr<User>>& usuarios) {
         case 3: planoAssinatura = const_cast<Plano*>(&Plano::getPremium()); break;
     }
 
-    int id = usuarios.size() + 1;
-    usuarios.push_back(make_unique<User>(id, nome, email, senha, planoAssinatura, false));
+    usuarios.push_back(make_unique<User>(nome, email, senha, planoAssinatura, false));
     cout << "Usuario cadastrado com sucesso!" << endl;
 }
 
@@ -246,13 +255,6 @@ User* autenticarUsuario(const vector<unique_ptr<User>>& usuarios) {
         }
     }
     return nullptr;
-}
-
-string lerString(string msg) {
-    string in;
-    cout << msg << endl;
-    getline(cin, in);
-    return in;
 }
 
 
