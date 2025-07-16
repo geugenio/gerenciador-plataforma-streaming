@@ -327,6 +327,11 @@ void menuUser(User& usuario, Catalogo& catalogo) {
                     cout << "Voce ainda nao fez nenhuma review." << endl;
                 }
                 break;
+                case 7: {
+                    cout << "\n--- Editar Meu Perfil ---" << endl;
+                    editarPerfilUsuario(usuario);
+                        break;
+                }
             }
             case 0: cout << "Deslogando..." << endl; break;
         }
