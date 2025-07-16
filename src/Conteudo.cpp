@@ -1,19 +1,14 @@
 #include "Conteudo.h"
 using namespace std;
+int Conteudo::proxId = 1;
 
 
-Conteudo::Conteudo(int id, string titulo, string sinopse, string diretor, vector<string> elenco, string genero, 
-    string subgenero, int anoLancamento, string classificacao, float duracao){
-    this->id = id;
-    this->titulo = titulo;
-    this->sinopse = sinopse;
-    this->diretor = diretor;
-    this->elenco = elenco;
-    this->genero = genero;
-    this->subgenero = subgenero;
-    this->anoLancamento = anoLancamento;
-    this->classificacao = classificacao;
-    this->duracao = duracao;
+Conteudo::Conteudo(string titulo, string sinopse, string diretor, vector<string> elenco, string genero, 
+    string subgenero, int anoLancamento, string classificacao, float duracao)
+    : id(proxId++), titulo(titulo), sinopse(sinopse), diretor(diretor), elenco(elenco),
+      genero(genero), subgenero(subgenero), anoLancamento(anoLancamento),
+      classificacao(classificacao), duracao(duracao)
+{
 }
 
 void Conteudo::exibir() const {

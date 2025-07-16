@@ -6,6 +6,8 @@
 class Conteudo{
     protected:
         int id;
+        static int proxId;
+        
         std::string titulo;
         std::string sinopse;
         std::string diretor;
@@ -18,7 +20,7 @@ class Conteudo{
 
     public:
         // Construtores e destrutores
-        Conteudo(int id, std::string titulo, std::string sinopse, std::string diretor, std::vector<std::string> elenco, 
+        Conteudo(std::string titulo, std::string sinopse, std::string diretor, std::vector<std::string> elenco, 
             std::string genero, std::string subgenero, int anoLancamento, std::string classificacao, float duracao);
         Conteudo() = default;
 
