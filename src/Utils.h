@@ -36,6 +36,7 @@ void exibirMenuDetalhesConteudo();
 void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 void exibirTodosConteudos(const Catalogo& catalogo);
 void editarPerfilUsuario(User& usuario);
+void atualizarDetalhesConteudo(Conteudo* conteudo);
 
 // funções de navegação do menu 
 void menuInicial(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
