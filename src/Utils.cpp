@@ -104,6 +104,65 @@ void exibirTodosConteudos(const Catalogo& catalogo){
     }
 }
 
+void editarPerfilUsuario(User& usuario) {
+    int opc;
+    do {
+        cout << "++============================++" << endl;
+        cout << "||      EDITAR PERFIL         ||" << endl;
+        cout << "++==+=========================++" << endl;
+        cout << "| 1 | Alterar Nome            ||" << endl;
+        cout << "| 2 | Alterar Email           ||" << endl;
+        cout << "| 3 | Alterar Senha           ||" << endl;
+        cout << "| 4 | Alterar Plano           ||" << endl;
+        cout << "| 0 | Voltar                  ||" << endl;
+        cout << "+===+==========================++" << endl;
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
+
+        switch (opc) {
+            case 1: {
+                string novoNome = lerString("Digite o novo nome:");
+                usuario.setNome(novoNome);
+                cout << "Nome atualizado com sucesso!" << endl;
+                break;
+            }
+            case 2: {
+                string novoEmail = lerString("Digite o novo email:");
+                usuario.setEmail(novoEmail);
+                cout << "Email atualizado com sucesso!" << endl;
+                break;
+            }
+            case 3: {
+                string novaSenha = lerString("Digite a nova senha:");
+                usuario.setSenha(novaSenha);
+                cout << "Senha atualizada com sucesso!" << endl;
+                break;
+            }
+            case 4: {
+                cout << "Escolha um novo plano:" << endl;
+                cout << "1. Simples (SD, 1 dispositivo)" << endl;
+                cout << "2. Padrao (HD, 2 dispositivos)" << endl;
+                cout << "3. Premium (4K, 4 dispositivos)" << endl;
+                int planoOpc = lerNumIntervalo("Opcao:", 1, 3);
+                Plano* novoPlano = nullptr;
+                switch (planoOpc) {
+                    case 1: novoPlano = const_cast<Plano*>(&Plano::getSimples()); break;
+                    case 2: novoPlano = const_cast<Plano*>(&Plano::getPadrao()); break;
+                    case 3: novoPlano = const_cast<Plano*>(&Plano::getPremium()); break;
+                }
+                usuario.setPlanoAssinatura(novoPlano);
+                cout << "Plano atualizado com sucesso!" << endl;
+                break;
+            }
+            case 0:
+                cout << "Voltando..." << endl;
+                break;
+            default:
+                cout << "Opcao invalida." << endl;
+                break;
+        }
+    } while (opc != 0);
+}
+
 // funções de inicialização e gerenciamento
 void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios){
     catalogo.adicionarConteudo(new Filme(proximoConteudoId++, "Spider-Man 2", "Cansado de ser o Homem-Aranha, Peter Parker tenta equilibrar sua vida pessoal e suas responsabilidades de herói enquanto enfrenta o vilão Dr. Octopus.",
