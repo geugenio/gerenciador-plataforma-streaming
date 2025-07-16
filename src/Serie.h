@@ -9,7 +9,7 @@ class Serie : public Conteudo{
         int temporadas;
     public:
         Serie();
-        Serie(int id, std::string titulo, std::string sinopse, std::string diretor, std::vector<std::string> elenco, 
+        Serie(std::string titulo, std::string sinopse, std::string diretor, std::vector<std::string> elenco, 
               std::string genero, std::string subgenero, int anoLancamento, std::string classificacao, 
               float duracao, int episodiosTotais, int temporadas);
         void exibir() const override;

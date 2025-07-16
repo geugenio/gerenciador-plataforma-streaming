@@ -4,12 +4,10 @@ using namespace std;
 
 //Construtor
 
-Serie::Serie(int id, string titulo, string sinopse, string diretor, vector<string> elenco, 
+Serie::Serie(string titulo, string sinopse, string diretor, vector<string> elenco, 
              string genero, string subgenero, int anoLancamento, string classificacao, 
-             float duracao, int episodiosTotais, int temporadas) : Conteudo(id, titulo, sinopse, diretor, elenco, 
-             genero, subgenero, anoLancamento, classificacao, duracao) {
-    this->episodiosTotais = episodiosTotais;
-    this->temporadas = temporadas;
+             float duracao, int episodiosTotais, int temporadas) : Conteudo(titulo, sinopse, diretor, elenco, 
+             genero, subgenero, anoLancamento, classificacao, duracao), episodiosTotais(episodiosTotais), temporadas(temporadas){
 }
 
 //Getters e Setters
