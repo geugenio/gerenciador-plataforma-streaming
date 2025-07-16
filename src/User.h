@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Plano.h"
-
+#include <vector>
 class Review;
 class Playlist;
 
@@ -37,7 +37,7 @@ class User{
 
         //Métodos
         void exibir() const;
-        bool autenticar(string e, string s) const;
+        bool autenticar(std::string e, std::string s) const;
         void addReview(Review* review);
         void addPlaylist(Playlist* playlist);
         void removerPlaylistPorId(int idPlaylist);

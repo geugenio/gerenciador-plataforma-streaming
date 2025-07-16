@@ -19,7 +19,7 @@ class Playlist{
         void adicionarConteudo(Conteudo* conteudo);
         void removerConteudo(Conteudo* conteudo);
 
-        string getNome() const;
+        std::string getNome() const;
         std::vector<Conteudo*> getConteudos() const;
         User* getCriador() const;
         int getId() const;
