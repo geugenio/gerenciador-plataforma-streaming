@@ -4,6 +4,12 @@
 
 using namespace std;
 
+Catalogo::~Catalogo() {
+    for (Conteudo* c : conteudos) {
+        delete c;
+    }
+}
+
 void Catalogo::adicionarConteudo(Conteudo* conteudo) {
     conteudos.push_back(conteudo);
 }

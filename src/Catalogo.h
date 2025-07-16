@@ -11,6 +11,7 @@ class Catalogo{
         std::vector<Conteudo*> conteudos;
 
     public:
+        ~Catalogo();
         std::vector<Conteudo*> getConteudos() const;
         void adicionarConteudo(Conteudo* conteudo);
         Conteudo* buscarConteudoId(int id) const;

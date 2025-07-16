@@ -403,10 +403,9 @@ void menuUser(User& usuario, Catalogo& catalogo) {
             case 6: { // Minhas reviews
                 cout << "\n--- Minhas Reviews ---" << endl;
                 bool encontrou = false;
-                for (const auto& r : reviews) {
-                    if (r->getCriadorReview()->getId() == usuario.getId()) {
-                        r->exibirDetalhes();
-                        encontrou = true;
+                for (const auto& r : usuario.getReviews()) {
+                    r->exibirDetalhes();
+                    encontrou = true;
                     }
                 }
                 if (!encontrou) {
