@@ -31,3 +31,13 @@ void cadastrarUsuario(vector<unique_ptr<User>>& usuarios);
 int lerNum(string msg);
 int lerNumIntervalo(string msg, int min, int max);
 string lerString(string msg);
+
+int main() {
+    Catalogo catalogo;
+    vector<unique_ptr<User>> usuarios;
+
+    inicializarDados(catalogo, usuarios);
+    menuInicial(catalogo, usuarios);
+
+    return 0;
+}
