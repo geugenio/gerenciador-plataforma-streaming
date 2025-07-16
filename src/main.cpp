@@ -21,40 +21,13 @@ vector<unique_ptr<Playlist>> playlists;
 
 //prototipo
 void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
-
 void menuUser(User& usuario, Catalogo& catalogo);
 void menuAdmin(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 void menuConteudo(Conteudo& conteudo, User& usuario);
-
-int lerNum(string msg){
-    string in;
-    int num;
-
-    while(true){
-        cout << msg << endl;
-        getline(cin, in);
-        try{
-            num = stoi(in);
-            break;
-        } catch(const exception& e){
-            cout << "Entrada invalida! Insira um numero." << endl;
-        }
-    }
-    return num;
-}
-
-int lerNumIntervalo(string msg, int min, int max){
-    int num;
-    do{
-        num = lerNum(msg);
-        if(num < min || num > max){
-            cout<< "Entrada invalida, digite um numero dentro do intervalo" 
-            << "(" << min <<" a " << max << ")." << endl;
-        }
-    } while(num<min || num>max);
-    return num;
-}
-
+User* autenticarUsuario(const vector<unique_ptr<User>>& usuarios);
+void cadastrarUsuario(vector<unique_ptr<User>>& usuarios);
+int lerNum(string msg);
+int lerNumIntervalo(string msg, int min, int max);
 
 void exibirMenuLogin(){
     cout << "++=============================++"<<endl;
@@ -144,6 +117,33 @@ int main(){
 
 
 
+int lerNum(string msg){
+    string in;
+    int num;
+    while(true){
+        cout << msg << endl;
+        getline(cin, in);
+        try{
+            num = stoi(in);
+            break;
+        } catch(const exception& e){
+            cout << "Entrada invalida! Insira um numero." << endl;
+        }
+    }
+    return num;
+}
+
+int lerNumIntervalo(string msg, int min, int max){
+    int num;
+    do{
+        num = lerNum(msg);
+        if(num < min || num > max){
+            cout<< "Entrada invalida, digite um numero dentro do intervalo" 
+            << "(" << min <<" a " << max << ")." << endl;
+        }
+    } while(num<min || num>max);
+    return num;
+}
 
 void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios){
     //Filmes (id, titulo, sinopse, diretor, elenco, genero, subgenero, anoLancamento, classificacao, duracao, premiacoes)
