@@ -99,36 +99,3 @@ void User::removerPlaylistPorId(int idPlaylist) {
 const std::vector<Playlist*>& User::getPlaylists() const {
     return playlists;
 }
-
-User* autenticarUsuario(const vector<unique_ptr<User>>& usuarios) {
-    string email = lerString("Digite seu email:");
-    string senha = lerString("Digite sua senha:");
-    for (const auto& user : usuarios) {
-        if (user->autenticar(email, senha)) {
-            return user.get();
-        }
-    }
-    return nullptr;
-}
-
-void cadastrarUsuario(vector<unique_ptr<User>>& usuarios) {
-    string nome = lerString("Digite seu nome:");
-    string email = lerString("Digite seu email:");
-    string senha = lerString("Digite sua senha:");
-
-    cout << "Escolha um plano:" << endl;
-    cout << "1. Simples (SD, 1 dispositivo)" << endl;
-    cout << "2. Padrao (HD, 2 dispositivos)" << endl;
-    cout << "3. Premium (4K, 4 dispositivos)" << endl;
-    int planoOpc = lerNumIntervalo("Opcao:", 1, 3);
-
-    Plano* planoAssinatura = nullptr;
-    switch (planoOpc) {
-        case 1: planoAssinatura = const_cast<Plano*>(&Plano::getSimples()); break;
-        case 2: planoAssinatura = const_cast<Plano*>(&Plano::getPadrao()); break;
-        case 3: planoAssinatura = const_cast<Plano*>(&Plano::getPremium()); break;
-    }
-
-    usuarios.push_back(make_unique<User>(nome, email, senha, planoAssinatura, false));
-    cout << "Usuario cadastrado com sucesso!" << endl;
-}
