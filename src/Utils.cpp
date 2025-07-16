@@ -1,4 +1,4 @@
-#include "util.h"
+#include "utils.h"
 extern int proximoConteudoId;
 
 int lerNum(string msg){
@@ -54,9 +54,10 @@ void exibirMenuConteudoUsuario(){
     cout << "| 1 | Listar todos             ||" << endl;
     cout << "| 2 | Buscar por titulo        ||" << endl;
     cout << "| 3 | Buscar por genero        ||" << endl;
-    cout << "| 4 | Ver dtalhes/reviews      ||" << endl;
+    cout << "| 4 | Ver detalhes/reviews      ||" << endl;
     cout << "| 5 | Minhas playlists         ||" << endl; //exibe playlists
     cout << "| 6 | Minhas reviews           ||" << endl; //exibe todas as reviews associadas ao usuário, em ordem cronologica (mais novas primeiro)
+    cout << "| 7 | Editar meu Perfil        ||" << endl;
     cout << "| 0 | Voltar                   ||" << endl;
     cout << "+===+==========================++"<<endl;
 }
@@ -102,6 +103,65 @@ void exibirTodosConteudos(const Catalogo& catalogo){
         cout<< "Ano: " << conteudo->getAnoLancamento() << endl;
         cout << "--------------------------------" << endl;
     }
+}
+
+void editarPerfilUsuario(User& usuario) {
+    int opc;
+    do {
+        cout << "++============================++" << endl;
+        cout << "||      EDITAR PERFIL         ||" << endl;
+        cout << "++==+=========================++" << endl;
+        cout << "| 1 | Alterar Nome            ||" << endl;
+        cout << "| 2 | Alterar Email           ||" << endl;
+        cout << "| 3 | Alterar Senha           ||" << endl;
+        cout << "| 4 | Alterar Plano           ||" << endl;
+        cout << "| 0 | Voltar                  ||" << endl;
+        cout << "+===+==========================++" << endl;
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
+
+        switch (opc) {
+            case 1: {
+                string novoNome = lerString("Digite o novo nome:");
+                usuario.setNome(novoNome);
+                cout << "Nome atualizado com sucesso!" << endl;
+                break;
+            }
+            case 2: {
+                string novoEmail = lerString("Digite o novo email:");
+                usuario.setEmail(novoEmail);
+                cout << "Email atualizado com sucesso!" << endl;
+                break;
+            }
+            case 3: {
+                string novaSenha = lerString("Digite a nova senha:");
+                usuario.setSenha(novaSenha);
+                cout << "Senha atualizada com sucesso!" << endl;
+                break;
+            }
+            case 4: {
+                cout << "Escolha um novo plano:" << endl;
+                cout << "1. Simples (SD, 1 dispositivo)" << endl;
+                cout << "2. Padrao (HD, 2 dispositivos)" << endl;
+                cout << "3. Premium (4K, 4 dispositivos)" << endl;
+                int planoOpc = lerNumIntervalo("Opcao:", 1, 3);
+                Plano* novoPlano = nullptr;
+                switch (planoOpc) {
+                    case 1: novoPlano = const_cast<Plano*>(&Plano::getSimples()); break;
+                    case 2: novoPlano = const_cast<Plano*>(&Plano::getPadrao()); break;
+                    case 3: novoPlano = const_cast<Plano*>(&Plano::getPremium()); break;
+                }
+                usuario.setPlanoAssinatura(novoPlano);
+                cout << "Plano atualizado com sucesso!" << endl;
+                break;
+            }
+            case 0:
+                cout << "Voltando..." << endl;
+                break;
+            default:
+                cout << "Opcao invalida." << endl;
+                break;
+        }
+    } while (opc != 0);
 }
 
 // funções de inicialização e gerenciamento
@@ -274,7 +334,7 @@ void menuUser(User& usuario, Catalogo& catalogo) {
     int opc;
     do {
         exibirMenuConteudoUsuario();
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 6);
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 7);
         switch (opc) {
             case 1: { // Listar todos
                 cout << "\n--- Lista de Todos os Conteudos ---" << endl;
@@ -327,12 +387,13 @@ void menuUser(User& usuario, Catalogo& catalogo) {
                     cout << "Voce ainda nao fez nenhuma review." << endl;
                 }
                 break;
-                case 7: {
+                            }
+            case 7: { //editar perfil
                     cout << "\n--- Editar Meu Perfil ---" << endl;
                     editarPerfilUsuario(usuario);
                         break;
-                }
             }
+
             case 0: cout << "Deslogando..." << endl; break;
         }
     } while (opc != 0);
