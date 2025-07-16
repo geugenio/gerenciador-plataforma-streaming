@@ -1,10 +1,38 @@
-/*
-Nesse util, vai ficar as funções:
-    lerNum, lerNumIntervalo, lerString
-    funções de exibição de menus
-    inicilização de dados
+#pragma once
 
-Isso vai ser de bastante utilidade pra enxugar o nosso main, que tá muito grande
+#include <iostream>
+#include <string>
+#include <vector>
+#include <limits>
+#include <memory>
 
-*/
+#include "Catalogo.h"
+#include "User.h"
+#include "Plano.h"
+#include "Filme.h"
+#include "Serie.h"
+#include "Review.h"
 
+using namespace std;
+
+int lerNum(string msg);
+int lerNumIntervalo(string msg, int min, int max);
+string lerString(string msg);
+
+// funções de exibição do menu
+void exibirMenuLogin();
+void exibirMenuConteudoUsuario();
+void exibirMenuConteudoAdmin();
+void exibirMenuDetalhesConteudo();
+
+// funções de inicialização e gerenciamento
+void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
+User* autenticarUsuario(const vector<unique_ptr<User>>& usuarios);
+void cadastrarUsuario(vector<unique_ptr<User>>& usuarios);
+void exibirTodosConteudos(const Catalogo& catalogo);
+
+// funções de navegação do menu 
+void menuInicial(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
+void menuUser(User& usuario, Catalogo& catalogo);
+void menuAdmin(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
+void menuConteudo(Conteudo& conteudo, User& usuario);
