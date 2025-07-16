@@ -24,6 +24,7 @@ void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 
 void menuUser(User& usuario, Catalogo& catalogo);
 void menuAdmin(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
+void menuConteudo(Conteudo& conteudo, User& usuario);
 
 int lerNum(string msg){
     string in;
@@ -93,13 +94,14 @@ void exibirMenuConteudoAdmin(){
     cout << "+===+==========================++"<<endl;
 }
 
-void menuConteudo(){
-    cout << "++=============================++" << endl;
-    cout << "||    DO CONTEÚDO     ||" << endl;
+void exibirMenuDetalhesConteudo(){
+    cout << "++============================++" << endl;
+    cout << "||    DETALHES DO CONTEÚDO    ||" << endl;
     cout << "++==+=========================++" << endl;
     cout << "| 1 | Adicionar review        ||" << endl; //adiciona uma nova review
-    cout << "| 2 | ler reviews             ||" << endl; //exibe todas as avaliações em uma lista
-    cout << "| 3 | Adicionar a playlist    ||" << endl; //(aqui pode exibir o nome e o id das playlists do usuario, ai pergunta qual q quer inserir)
+    cout << "| 2 | Atualizar review        ||" << endl;
+    cout << "| 3 | Ler reviews             ||" << endl; //exibe todas as avaliações em uma lista
+    cout << "| 4 | Adicionar a playlist    ||" << endl; //(aqui pode exibir o nome e o id das playlists do usuario, ai pergunta qual q quer inserir)
     cout << "| 0 | Voltar                  ||" << endl;
     cout << "+===+==========================++"<<endl;
 }
@@ -142,7 +144,7 @@ int main(){
 
 
 
-//Prototipos das funções do main
+
 void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios){
     //Filmes (id, titulo, sinopse, diretor, elenco, genero, subgenero, anoLancamento, classificacao, duracao, premiacoes)
     catalogo.adicionarConteudo(new Filme(1, "Spider-Man 2", "Cansado de ser o Homem-Aranha, Peter Parker tenta equilibrar sua vida pessoal e suas responsabilidades de herói enquanto enfrenta o vilão Dr. Octopus.", 
@@ -253,6 +255,107 @@ string lerString(string msg) {
     return in;
 }
 
+
+void menuConteudo(Conteudo& conteudo, User& usuario){
+    int opc;
+    do{
+        exibirMenuDetalhesConteudo();
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
+        switch (opc){
+            case 1:{ //adicionando review
+                cout << "=============|  Adicionar Review   |============" << endl;
+                int estrela;
+                string resenha;
+                cin = lerNumIntervalo("Estrelas (1-5)", 1, 5);;
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                cout << "Resenha: ";
+                getline(cin, resenha);
+                Review* novaReview = new Review(&usuario, &conteudo, estrela, resenha);
+                usuario.addReview(novaReview);
+                conteudo.addReview(novaReview);
+                cout << endl << "Review adicionada com sucesso!" << endl;
+                break;
+            }
+            case 2:{ //Atualizar review
+                Review* review = usuario.buscarReviewPorConteudo(&conteudo);
+                if(review){
+                    cout << "Review encontrada. Adicione novos dados." << endl;
+                    int novaNota = lerNumIntervalo("Nova nota(1-5):", 1, 5);
+                    cout << "Nova Resenha: ";
+                    string novaResenha;
+                    getline(cin, novaResenha);
+                    review->setNota(novaNota);
+                    review->setResenha(novaResenha);
+                    review->atualizarDataReview();
+                    cout << "Review atualizada com sucesso!" << endl;
+                } else {
+                    cout << "Parece que voce ainda nao fez uma review para esse conteudo." << endl;
+                }
+
+                break;
+            }
+            case 3:{ //
+                conteudo.exibirReviews();
+                break;
+            }
+            case 4:{
+                vector<Playlist*> playlists = usuario.getPlaylists();
+                if(playlists.empty()){
+                    cout << "Voce nao tem playlists ainda!" << endl;
+                    break;
+                }
+
+                cout << "=======| Playlists |======" << endl;
+                for (const Playlist* p : playlists) {
+                    cout << "ID: " << p->getId() 
+                        << " | Nome: " << p->getNome() 
+                        << " | Quantidade de conteúdos: " << p->getConteudos().size() 
+                        << endl;
+                    }
+                
+                    int idEscolhido = lerNum("Digite o ID da playlist para adicionar o conteudo:");
+
+                    //Buscando
+                    Playlist* playlistEscolhida = nullptr;
+                    for(Playlist* p : playlists){
+                        if(p->getId() == idEscolhido){
+                            playlistEscolhida = p;
+                            break;
+                        }
+                    }
+                    if(!playlistEscolhida){
+                        cout << "Playlist de ID" << idEscolhido << " nao encontrada." << endl;
+                        break;
+                    }
+
+                    cout << "Playlist " << playlistEscolhida->getNome() << " selecionada!" << endl;
+                    const auto& conteudos = playlistEscolhida->getConteudos();
+                    bool jaAdicionada = false;
+                    for(const Conteudo* c : conteudos){
+                        if (c-> getId() == conteudo.getId()){
+                            jaAdicionada = true;
+                            break;
+                        }
+                    }
+
+                    if(jaAdicionada){
+                        cout << "O conteudo ja esta na playlist" << endl;
+                    } else{
+                        playlistEscolhida->adicionarConteudo(&conteudo);
+                        cout << "Conteudo adicionado com sucesso!" << endl;
+                    }
+                    break;
+            }
+            default:{
+                break;
+            }
+
+        }
+    } while(opc!=0);
+}
+
+
+
 void menuUser(User& usuario, Catalogo& catalogo) {
     int opc;
     do {
@@ -280,7 +383,7 @@ void menuUser(User& usuario, Catalogo& catalogo) {
                 int id = lerNum("Digite o ID do conteudo para ver os detalhes:");
                 Conteudo* c = catalogo.buscarConteudoId(id);
                 if (c) {
-                    menuDetalhesConteudo(usuario, c, catalogo);
+                    menuConteudo(usuario, c, catalogo);
                 } else {
                     cout << "Conteudo nao encontrado." << endl;
                 }

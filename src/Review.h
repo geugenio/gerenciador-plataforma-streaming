@@ -31,4 +31,5 @@ public:
     void setResenha(const string& novaResenha);
 
     void exibirDetalhes() const;
+    void atualizarDataReview();
 };

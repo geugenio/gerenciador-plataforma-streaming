@@ -20,6 +20,17 @@ void Playlist::adicionarConteudo(Conteudo* conteudo) {
     conteudos.push_back(conteudo);
 }
 
+int Playlist::getId() const{
+    return id;
+}
+
+string Playlist::getNome() const{
+    return nome;
+}
+std::vector<Conteudo*> Playlist::getConteudos() const{
+    return conteudos;
+}
+
 void Playlist::removerConteudo(Conteudo* conteudo) {
     for (size_t i = 0; i < conteudos.size(); ++i) {
         if (conteudos[i] == conteudo) {

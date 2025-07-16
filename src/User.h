@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Review.h"
 #include "Plano.h"
-
+#include "Playlist.h"
 class User{
     private:
         static int proxId; //id gerador automatico
@@ -12,6 +12,7 @@ class User{
         std::string senha;
         Plano* planoAssinatura;
         std::vector<Review*> reviews;
+        std::vector<Playlist*> playlists;
         bool isAdmin = false;
 
     public:
@@ -30,11 +31,15 @@ class User{
         void setNome(const std::string& nome);
         void setEmail(const std::string& email);
         void setSenha(const std::string& senha);
-        void setPlanoAssinatura(Plano* plano);
+        void setPlanoAssinatura(Plano* plano); 
 
         //Métodos
         void exibir() const;
         bool autenticar(string e, string s) const;
         void addReview(Review* review);
+        void addPlaylist(Playlist* playlist);
+        void removerPlaylistPorId(int idPlaylist);
+        const std::vector<Playlist*>& getPlaylists() const;
+        Review* buscarReviewPorConteudo(Conteudo* conteudo) const;
         
 };

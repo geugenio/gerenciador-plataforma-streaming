@@ -82,3 +82,7 @@ void Review::exibirDetalhes() const {
     }
     cout << "--------------------------" << endl;
 }
+
+void Review::atualizarDataReview(){
+    dataReview = time(nullptr);
+}

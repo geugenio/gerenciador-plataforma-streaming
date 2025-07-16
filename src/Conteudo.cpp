@@ -27,6 +27,7 @@ void Conteudo::exibir() const {
     cout << "Ano de Lançamento: " << anoLancamento << endl;
     cout << "Classificacao: " << classificacao << endl;
     cout << "Duracao: " << duracao << " minutos" << endl;
+    cout << "Numeros de reviews: " << reviews.size() << endl;
 }
 
 
@@ -51,4 +52,15 @@ void Conteudo::addReview(Review* review) {
 
 const std::vector<Review*>& Conteudo::getReviews() const {
     return reviews;
+}
+void Conteudo::exibirReviews() const{
+    if(reviews.empty()){
+        cout << "Nenhuma review cadastrada para este conteudo." << endl;
+        return;
+    }
+    cout << "====| Reviews de " << titulo << "|===="<<endl;
+    for (const auto& review : reviews){
+        review->exibirDetalhes();
+        cout << "--------------------------" << endl;
+    }
 }

@@ -18,4 +18,8 @@ class Playlist{
         void adicionarConteudo(Conteudo* conteudo);
         void removerConteudo(Conteudo* conteudo);
 
+        string getNome() const;
+        std::vector<Conteudo*> getConteudos() const;
+        int getId() const;
+
 };

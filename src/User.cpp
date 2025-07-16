@@ -65,3 +65,28 @@ void User::addReview(Review* review) {
 const vector<Review*>& User::getReviews() const {
     return reviews;
 }
+Review* User::buscarReviewPorConteudo(Conteudo* conteudo) const {
+    for (Review* review : reviews) {
+        if (review->getConteudoAvaliado() == conteudo) {
+            return review;
+        }
+    }
+    return nullptr;
+}
+
+void User::addPlaylist(Playlist* playlist) {
+    playlists.push_back(playlist);
+}
+void User::removerPlaylistPorId(int idPlaylist) {
+    for (size_t i = 0; i < playlists.size(); ++i) {
+        if (playlists[i]->getId() == idPlaylist) {
+            playlists.erase(playlists.begin() + i);
+            cout << "Playlist removida." << endl;
+            return;
+        }
+    }
+    cout << "Playlist não encontrada." << endl;
+}
+const std::vector<Playlist*>& User::getPlaylists() const {
+    return playlists;
+}
