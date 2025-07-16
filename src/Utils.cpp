@@ -108,6 +108,141 @@ void exibirTodosConteudos(const Catalogo& catalogo){
     }
 }
 
+void atualizarDetalhesConteudo(Conteudo* conteudo) {
+    cout << "\n--- Atualizar Detalhes do Conteudo (ID: " << conteudo->getId() << ", Titulo: " << conteudo->getTitulo() << ") ---" << endl;
+    int opc;
+    do {
+        cout << "++================================++" << endl;
+        cout << "||     ATUALIZAR CONTEÚDO         ||" << endl;
+        cout << "++==+=============================++" << endl;
+        cout << "| 1 | Alterar Titulo              ||" << endl;
+        cout << "| 2 | Alterar Sinopse             ||" << endl;
+        cout << "| 3 | Alterar Diretor             ||" << endl;
+        cout << "| 4 | Alterar Elenco              ||" << endl; 
+        cout << "| 5 | Alterar Genero              ||" << endl;
+        cout << "| 6 | Alterar Subgenero           ||" << endl;
+        cout << "| 7 | Alterar Ano Lancamento      ||" << endl;
+        cout << "| 8 | Alterar Classificacao       ||" << endl;
+        cout << "| 9 | Alterar Duracao             ||" << endl;
+
+        // Opções específicas para Filme ou Serie (condicionais)
+        Filme* filme = dynamic_cast<Filme*>(conteudo);
+        Serie* serie = dynamic_cast<Serie*>(conteudo);
+
+        if (filme) {
+            cout << "| 10| Alterar Premiacoes          ||" << endl;
+        } else if (serie) {
+            cout << "| 10| Alterar Episodios Totais    ||" << endl;
+            cout << "| 11| Alterar Temporadas          ||" << endl;
+        }
+        cout << "| 0 | Voltar                      ||" << endl;
+        cout << "+===+=============================++" << endl;
+
+        int max_opc = 9;
+        if (filme) max_opc = 10;
+        else if (serie) max_opc = 11;
+
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, max_opc);
+
+        switch (opc) {
+            case 1: {
+                string novoTitulo = lerString("Digite o novo titulo:");
+                conteudo->setTitulo(novoTitulo);
+                cout << "Titulo atualizado!" << endl;
+                break;
+            }
+            case 2: {
+                string novaSinopse = lerString("Digite a nova sinopse:");
+                conteudo->setSinopse(novaSinopse);
+                cout << "Sinopse atualizada!" << endl;
+                break;
+            }
+            case 3: {
+                string novoDiretor = lerString("Digite o novo diretor:");
+                conteudo->setDiretor(novoDiretor);
+                cout << "Diretor atualizado!" << endl;
+                break;
+            }
+            case 4: {
+                // Implementação simples: substitui todo o elenco.
+                string elencoString = lerString("Digite o novo elenco (separado por virgulas):");
+                vector<string> novoElenco;
+                stringstream ss(elencoString);
+                string ator;
+                while (getline(ss, ator, ',')) {
+                    ator.erase(0, ator.find_first_not_of(" \t\n\r\f\v"));
+                    ator.erase(ator.find_last_not_of(" \t\n\r\f\v") + 1);
+                    if (!ator.empty()) {
+                        novoElenco.push_back(ator);
+                    }
+                }
+                conteudo->setElenco(novoElenco);
+                cout << "Elenco atualizado!" << endl;
+                break;
+            }
+            case 5: {
+                string novoGenero = lerString("Digite o novo genero:");
+                conteudo->setGenero(novoGenero);
+                cout << "Genero atualizado!" << endl;
+                break;
+            }
+            case 6: {
+                string novoSubgenero = lerString("Digite o novo subgenero:");
+                conteudo->setSubgenero(novoSubgenero);
+                cout << "Subgenero atualizado!" << endl;
+                break;
+            }
+            case 7: {
+                int novoAno = lerNum("Digite o novo ano de lancamento:");
+                conteudo->setAnoLancamento(novoAno);
+                cout << "Ano de lancamento atualizado!" << endl;
+                break;
+            }
+            case 8: {
+                string novaClassificacao = lerString("Digite a nova classificacao:");
+                conteudo->setClassificacao(novaClassificacao);
+                cout << "Classificacao atualizada!" << endl;
+                break;
+            }
+            case 9: {
+                float novaDuracao = stof(lerString("Digite a nova duracao (minutos):"));
+                conteudo->setDuracao(novaDuracao);
+                cout << "Duracao atualizada!" << endl;
+                break;
+            }
+            case 10: {
+                if (filme) {
+                    string novasPremiacoes = lerString("Digite as novas premiacoes:");
+                    filme->setPremiacoes(novasPremiacoes);
+                    cout << "Premiacoes atualizadas!" << endl;
+                } else if (serie) {
+                    int novosEpisodios = lerNum("Digite o novo numero total de episodios:");
+                    serie->setEpisodiosTotais(novosEpisodios);
+                    cout << "Episodios totais atualizados!" << endl;
+                }
+                break;
+            }
+            case 11: {
+                if (serie) {
+                    int novasTemporadas = lerNum("Digite o novo numero de temporadas:");
+                    serie->setTemporadas(novasTemporadas);
+                    cout << "Temporadas atualizadas!" << endl;
+                }
+                break;
+            }
+            case 0:
+                cout << "Voltando..." << endl;
+                break;
+            default:
+                cout << "Opcao invalida." << endl;
+                break;
+        }
+        cout << "------------------------------------------" << endl;
+        conteudo->exibir();
+        cout << "------------------------------------------" << endl;
+    } while (opc != 0);
+}
+
 void editarPerfilUsuario(User& usuario) {
     int opc;
     do {
