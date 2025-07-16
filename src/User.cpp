@@ -4,7 +4,7 @@
 // para evitar dependencia circular.
 #include "Review.h"
 #include "Playlist.h"
-
+#include "Conteudo.h"
 #include <iostream>
 
 

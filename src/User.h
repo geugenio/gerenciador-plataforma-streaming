@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Plano.h"
 #include <vector>
+class Conteudo;
 class Review;
 class Playlist;
 

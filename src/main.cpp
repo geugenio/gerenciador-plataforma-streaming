@@ -105,7 +105,6 @@ int main(){
     Catalogo catalogo;
     vector<unique_ptr<User>> usuarios;
     inicializarDados(catalogo, usuarios);
-    int opc = 0;
     cout << "===============================================" << endl;
     cout << "||           BEM VINDO AO SISTEMA DE          ||" << endl;
     cout << "||         GERENCIAMENTO DE STREAMING         ||" << endl;
