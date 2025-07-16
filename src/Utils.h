@@ -15,6 +15,11 @@
 
 using namespace std;
 
+class Review;
+class Playlist;
+extern std::vector<std::unique_ptr<Review>> reviews;
+extern std::vector<std::unique_ptr<Playlist>> playlists;
+
 int lerNum(string msg);
 int lerNumIntervalo(string msg, int min, int max);
 string lerString(string msg);
