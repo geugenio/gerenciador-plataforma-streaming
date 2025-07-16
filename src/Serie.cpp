@@ -10,6 +10,11 @@ Serie::Serie(string titulo, string sinopse, string diretor, vector<string> elenc
              genero, subgenero, anoLancamento, classificacao, duracao), episodiosTotais(episodiosTotais), temporadas(temporadas){
 }
 
+Serie::Serie() : Conteudo() {
+    this->episodiosTotais = 0;
+    this->temporadas = 0;
+}
+
 //Getters e Setters
 
 int Serie::getTemporadas() const{

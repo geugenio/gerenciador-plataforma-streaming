@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
+#include <string> // Adicionado
+#include <vector>  // Adicionado
 #include "Conteudo.h"
-
 
 class Serie : public Conteudo{
     private:
