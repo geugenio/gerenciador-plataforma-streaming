@@ -1,4 +1,5 @@
 #include "Conteudo.h"
+#include <vector>
 using namespace std;
 int Conteudo::proxId = 1;
 
@@ -42,4 +43,12 @@ string Conteudo::getGenero() const{
 }
 int Conteudo::getAnoLancamento() const {
     return anoLancamento;
+}
+
+void Conteudo::addReview(Review* review) {
+    reviews.push_back(review);
+}
+
+const std::vector<Review*>& Conteudo::getReviews() const {
+    return reviews;
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
-
+#include "Review.h"
 
 class Conteudo{
     protected:
@@ -17,6 +17,7 @@ class Conteudo{
         int anoLancamento;
         std::string classificacao;
         float duracao;
+        std::vector<Review*> reviews;
 
     public:
         // Construtores e destrutores
@@ -26,12 +27,16 @@ class Conteudo{
 
         //Destrutor default
         virtual ~Conteudo() = default;
-        // Métodos
-        virtual void exibir() const;
 
         //Getters e Setters
         int getId() const;
         std::string getTitulo() const;
         std::string getGenero() const;
         int getAnoLancamento() const;
+        const std::vector<Review*>& getReviews() const;
+
+        // Métodos
+        virtual void exibir() const;
+        void addReview(Review* review);
+
 };
