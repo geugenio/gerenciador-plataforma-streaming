@@ -27,8 +27,6 @@ void exibirMenuDetalhesConteudo();
 
 // funções de inicialização e gerenciamento
 void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
-User* autenticarUsuario(const vector<unique_ptr<User>>& usuarios);
-void cadastrarUsuario(vector<unique_ptr<User>>& usuarios);
 void exibirTodosConteudos(const Catalogo& catalogo);
 void editarPerfilUsuario(User& usuario);
 
