@@ -1,5 +1,10 @@
 #include "Playlist.h"
+
+// incluindo includes dos cabeçalhos, Review.h utiliza forward declaration
+// para evitar dependencia circular.
+#include "User.h"
 #include "Conteudo.h"
+
 using namespace std;
 
 int Playlist::proxId = 1;
@@ -22,6 +27,9 @@ void Playlist::adicionarConteudo(Conteudo* conteudo) {
 
 int Playlist::getId() const{
     return id;
+}
+User* Playlist::getCriador() const{
+    return criador;
 }
 
 string Playlist::getNome() const{

@@ -1,4 +1,10 @@
 #include "Review.h"
+// incluindo includes dos cabeçalhos, Review.h utiliza forward declaration
+// para evitar dependencia circular.
+#include "User.h"
+#include "Conteudo.h"
+
+
 #include <iostream>
 #include <iomanip>
 #include <ctime>

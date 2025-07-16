@@ -1,8 +1,10 @@
 #pragma once
 #include <iostream>
-#include "Review.h"
 #include "Plano.h"
-#include "Playlist.h"
+
+class Review;
+class Playlist;
+
 class User{
     private:
         static int proxId; //id gerador automatico

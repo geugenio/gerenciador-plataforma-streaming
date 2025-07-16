@@ -1,5 +1,14 @@
 #include "User.h"
+
+// incluindo includes dos cabeçalhos, Review.h utiliza forward declaration
+// para evitar dependencia circular.
+#include "Review.h"
+#include "Playlist.h"
+
 #include <iostream>
+
+
+
 
 using namespace std;
 int User::proxId = 1;

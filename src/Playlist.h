@@ -1,8 +1,9 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "Conteudo.h"
-#include "User.h"
+
+class User;
+class Conteudo;
 
 
 class Playlist{
@@ -20,6 +21,7 @@ class Playlist{
 
         string getNome() const;
         std::vector<Conteudo*> getConteudos() const;
+        User* getCriador() const;
         int getId() const;
 
 };

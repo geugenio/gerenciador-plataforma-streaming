@@ -147,41 +147,41 @@ int lerNumIntervalo(string msg, int min, int max){
 
 void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios){
     //Filmes (id, titulo, sinopse, diretor, elenco, genero, subgenero, anoLancamento, classificacao, duracao, premiacoes)
-    catalogo.adicionarConteudo(new Filme(1, "Spider-Man 2", "Cansado de ser o Homem-Aranha, Peter Parker tenta equilibrar sua vida pessoal e suas responsabilidades de herói enquanto enfrenta o vilão Dr. Octopus.", 
+    catalogo.adicionarConteudo(new Filme("Spider-Man 2", "Cansado de ser o Homem-Aranha, Peter Parker tenta equilibrar sua vida pessoal e suas responsabilidades de herói enquanto enfrenta o vilão Dr. Octopus.", 
         "Sam Raimi", {"Tobey Maguire", "Kirsten Dunst", "Alfred Molina"}, "Ação", "Super-herói", 2004, "PG-13", 127.0, "Oscar de Melhor Efeitos Visuais"));
-    catalogo.adicionarConteudo(new Filme(2, "Jurassic Park", "Um parque temático com dinossauros clonados se torna um pesadelo quando as criaturas escapam.", 
+    catalogo.adicionarConteudo(new Filme("Jurassic Park", "Um parque temático com dinossauros clonados se torna um pesadelo quando as criaturas escapam.", 
         "Steven Spielberg", {"Sam Neill", "Laura Dern", "Jeff Goldblum"}, "Aventura", "Ficção Científica", 1993, "PG-13", 127.0, "Oscar de Melhor Som, Melhor Edição de Som, Melhores Efeitos Visuais"));
-    catalogo.adicionarConteudo(new Filme(3, "Pulp Fiction", "A trama entrelaça várias histórias de criminosos em Los Angeles.", 
+    catalogo.adicionarConteudo(new Filme("Pulp Fiction", "A trama entrelaça várias histórias de criminosos em Los Angeles.", 
         "Quentin Tarantino", {"John Travolta", "Uma Thurman", "Samuel L. Jackson"}, "Crime", "Drama", 1994, "R", 154.0, "Oscar de Melhor Roteiro Original"));
-    catalogo.adicionarConteudo(new Filme(4, "Enigma de Outro Mundo", "Em uma base na Antártida, uma equipe de pesquisadores enfrenta uma entidade alienígena capaz de imitar qualquer ser vivo.", 
+    catalogo.adicionarConteudo(new Filme("Enigma de Outro Mundo", "Em uma base na Antártida, uma equipe de pesquisadores enfrenta uma entidade alienígena capaz de imitar qualquer ser vivo.", 
         "John Carpenter", {"Kurt Russell", "Wilford Brimley", "Keith David"}, "Terror", "Ficção Científica", 1982, "R", 109.0, "Indicado ao Saturn Award de Melhor Filme de Terror"));
-    catalogo.adicionarConteudo(new Filme(5, "Os Caçadores da Arca Perdida", "O arqueólogo Indiana Jones enfrenta nazistas em busca da Arca da Aliança, um artefato bíblico de imenso poder.",
+    catalogo.adicionarConteudo(new Filme("Os Caçadores da Arca Perdida", "O arqueólogo Indiana Jones enfrenta nazistas em busca da Arca da Aliança, um artefato bíblico de imenso poder.",
         "Steven Spielberg", {"Harrison Ford", "Karen Allen", "Paul Freeman"}, "Aventura", "Ação", 1981, "PG", 115.0, "Oscar de Melhor Direção de Arte, Melhor Som, Melhor Edição, Melhores Efeitos Visuais"));
-    catalogo.adicionarConteudo(new Filme(6, "Indiana Jones e o Templo da Perdição", "Indiana Jones se envolve em uma missão para recuperar uma pedra sagrada e enfrenta uma seita secreta na Índia.",
+    catalogo.adicionarConteudo(new Filme("Indiana Jones e o Templo da Perdição", "Indiana Jones se envolve em uma missão para recuperar uma pedra sagrada e enfrenta uma seita secreta na Índia.",
         "Steven Spielberg", {"Harrison Ford", "Kate Capshaw", "Ke Huy Quan"}, "Aventura", "Ação", 1984, "PG", 118.0, "Oscar de Melhores Efeitos Visuais"));
-    catalogo.adicionarConteudo(new Filme(7, "Indiana Jones e a Última Cruzada","Indiana Jones parte em busca do Santo Graal ao lado de seu pai, enfrentando nazistas e perigos mortais.",
+    catalogo.adicionarConteudo(new Filme("Indiana Jones e a Última Cruzada","Indiana Jones parte em busca do Santo Graal ao lado de seu pai, enfrentando nazistas e perigos mortais.",
         "Steven Spielberg", {"Harrison Ford", "Sean Connery", "Denholm Elliott"}, "Aventura", "Ação", 1989, "PG-13", 127.0, "Oscar de Melhor Edição de Som"));
-    catalogo.adicionarConteudo(new Filme(8, "A Viagem de Chihiro", "Chihiro, uma garota de 10 anos, entra em um mundo mágico e precisa encontrar coragem para salvar seus pais transformados em porcos.",
+    catalogo.adicionarConteudo(new Filme("A Viagem de Chihiro", "Chihiro, uma garota de 10 anos, entra em um mundo mágico e precisa encontrar coragem para salvar seus pais transformados em porcos.",
         "Hayao Miyazaki", {"Rumi Hiiragi", "Miyu Irino", "Mari Natsuki"}, "Animação", "Fantasia", 2001, "Livre", 125.0, "Oscar de Melhor Filme de Animação"));
-    catalogo.adicionarConteudo(new Filme(9, "O Serviço de Entregas da Kiki", "A jovem bruxa Kiki parte para a cidade grande para iniciar seu serviço de entregas enquanto aprende a lidar com a responsabilidade e a autoconfiança.",
+    catalogo.adicionarConteudo(new Filme("O Serviço de Entregas da Kiki", "A jovem bruxa Kiki parte para a cidade grande para iniciar seu serviço de entregas enquanto aprende a lidar com a responsabilidade e a autoconfiança.",
         "Hayao Miyazaki", {"Minami Takayama", "Rei Sakuma", "Kappei Yamaguchi"}, "Animação", "Fantasia", 1989, "Livre", 103.0, "Indicado ao Prêmio Anime Grand Prix de Melhor Filme"));
     //Series (id, titulo, sinopse, diretor, elenco, genero, subgenero, anoLancamento, classificacao, duracao, episodiosTotais, temporadas)
-    catalogo.adicionarConteudo(new Serie(10, "Breaking Bad", "Um professor de química se torna fabricante de metanfetamina após ser diagnosticado com câncer.", 
+    catalogo.adicionarConteudo(new Serie("Breaking Bad", "Um professor de química se torna fabricante de metanfetamina após ser diagnosticado com câncer.", 
         "Vince Gilligan", {"Bryan Cranston", "Aaron Paul", "Anna Gunn"}, "Crime", "Drama", 2008, "TV-MA", 49.0, 5, 62)); 
-     catalogo.adicionarConteudo(new Serie(11, "Game of Thrones", "Nobres casas lutam pelo controle do Trono de Ferro em um mundo medieval cheio de intrigas e dragões.", 
+     catalogo.adicionarConteudo(new Serie("Game of Thrones", "Nobres casas lutam pelo controle do Trono de Ferro em um mundo medieval cheio de intrigas e dragões.", 
         "David Benioff", {"Emilia Clarke", "Kit Harington", "Peter Dinklage"}, "Fantasia", "Drama", 2011, "TV-MA", 60.0, 8, 73));
-    catalogo.adicionarConteudo(new Serie(12, "Twin Peaks", "O agente do FBI Dale Cooper investiga o assassinato de Laura Palmer em uma pequena e misteriosa cidade.", 
+    catalogo.adicionarConteudo(new Serie("Twin Peaks", "O agente do FBI Dale Cooper investiga o assassinato de Laura Palmer em uma pequena e misteriosa cidade.", 
         "David Lynch", {"Kyle MacLachlan", "Michael Ontkean", "Sheryl Lee"}, "Mistério", "Drama", 1990, "TV-14", 47.0, 30, 2));
-    catalogo.adicionarConteudo(new Serie(13, "The Office", "Uma comédia de situação que retrata o cotidiano dos funcionários de uma empresa de papel.", 
+    catalogo.adicionarConteudo(new Serie("The Office", "Uma comédia de situação que retrata o cotidiano dos funcionários de uma empresa de papel.", 
         "Greg Daniels", {"Steve Carell", "Rainn Wilson", "John Krasinski"}, "Comédia", "Série de TV", 2005, "TV-14", 22.0, 201, 9));
-    catalogo.adicionarConteudo(new Serie(14, "Round 6", "Centenas de pessoas endividadas participam de um jogo mortal em busca de um prêmio bilionário, sem saber o verdadeiro preço da competição.",
+    catalogo.adicionarConteudo(new Serie("Round 6", "Centenas de pessoas endividadas participam de um jogo mortal em busca de um prêmio bilionário, sem saber o verdadeiro preço da competição.",
         "Hwang Dong-hyuk", {"Lee Jung-jae", "Park Hae-soo", "Jung Ho-yeon"}, "Drama", "Suspense", 2021, "18", 55.0, 22, 3));
-    catalogo.adicionarConteudo(new Serie(15, "Família Soprano", "Tony Soprano, um mafioso de Nova Jersey, enfrenta os desafios de liderar uma organização criminosa enquanto lida com problemas familiares e crises pessoais.",
+    catalogo.adicionarConteudo(new Serie("Família Soprano", "Tony Soprano, um mafioso de Nova Jersey, enfrenta os desafios de liderar uma organização criminosa enquanto lida com problemas familiares e crises pessoais.",
         "David Chase",{"James Gandolfini", "Lorraine Bracco", "Edie Falco"}, "Drama", "Crime", 1999, "18", 55.0, 86, 6));
 
     //Usuario administrador
     //id, nome, email, senha, planoAssinatura, isAdmin
-    usuarios.push_back(make_unique<User>(1, "admin", "admin@gmail.com", "admin123", nullptr, true));
+    usuarios.push_back(make_unique<User>("admin", "admin@gmail.com", "admin123", nullptr, true));
 
 }
 
@@ -426,7 +426,6 @@ void menuAdmin(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios) {
         switch (opc) {
             case 1: { // Adicionar conteudo
                 int tipo = lerNumIntervalo("Adicionar (1) Filme ou (2) Serie?", 1, 2);
-                int id = catalogo.getConteudos().back()->getId() + 1;
                 string titulo = lerString("Titulo:");
                 string sinopse = lerString("Sinopse:");
                 string diretor = lerString("Diretor:");
@@ -437,7 +436,7 @@ void menuAdmin(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios) {
                 float duracao = stof(lerString("Duracao (minutos):"));
 
                 if (tipo == 1) { /* Filme */ } else { /* Serie */ }
-                catalogo.adicionarConteudo(new Filme(id, titulo, sinopse, diretor, {}, genero, subgenero, ano, classificacao, duracao, ""));
+                catalogo.adicionarConteudo(new Filme(titulo, sinopse, diretor, {}, genero, subgenero, ano, classificacao, duracao, ""));
                 cout << "Conteudo adicionado com sucesso!" << endl;
                 break;
             }
