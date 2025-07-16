@@ -1,4 +1,5 @@
 #include "Playlist.h"
+#include <stdexcept>
 
 // incluindo includes dos cabeçalhos, Review.h utiliza forward declaration
 // para evitar dependencia circular.

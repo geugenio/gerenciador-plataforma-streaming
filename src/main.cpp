@@ -7,6 +7,7 @@
 #include "Serie.h"
 #include "Plano.h"
 #include "Review.h"
+#include "Utils.h"
 
 #include <vector>
 #include <limits>

@@ -1,6 +1,7 @@
 #include "Utils.h"
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 
 int lerNum(string msg){
