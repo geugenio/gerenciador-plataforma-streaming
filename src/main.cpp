@@ -264,9 +264,8 @@ void menuConteudo(Conteudo& conteudo, User& usuario){
         switch (opc){
             case 1:{ //adicionando review
                 cout << "=============|  Adicionar Review   |============" << endl;
-                int estrela;
                 string resenha;
-                cin = lerNumIntervalo("Estrelas (1-5)", 1, 5);;
+                int estrela = lerNumIntervalo("Estrelas (1-5)", 1, 5);
                 cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 cout << "Resenha: ";
                 getline(cin, resenha);
@@ -311,40 +310,40 @@ void menuConteudo(Conteudo& conteudo, User& usuario){
                         << " | Nome: " << p->getNome() 
                         << " | Quantidade de conteúdos: " << p->getConteudos().size() 
                         << endl;
-                    }
+                }
                 
-                    int idEscolhido = lerNum("Digite o ID da playlist para adicionar o conteudo:");
+                int idEscolhido = lerNum("Digite o ID da playlist para adicionar o conteudo:");
 
-                    //Buscando
-                    Playlist* playlistEscolhida = nullptr;
-                    for(Playlist* p : playlists){
-                        if(p->getId() == idEscolhido){
-                            playlistEscolhida = p;
-                            break;
-                        }
-                    }
-                    if(!playlistEscolhida){
-                        cout << "Playlist de ID" << idEscolhido << " nao encontrada." << endl;
+                //Buscando
+                Playlist* playlistEscolhida = nullptr;
+                for(Playlist* p : playlists){
+                    if(p->getId() == idEscolhido){
+                        playlistEscolhida = p;
                         break;
                     }
-
-                    cout << "Playlist " << playlistEscolhida->getNome() << " selecionada!" << endl;
-                    const auto& conteudos = playlistEscolhida->getConteudos();
-                    bool jaAdicionada = false;
-                    for(const Conteudo* c : conteudos){
-                        if (c-> getId() == conteudo.getId()){
-                            jaAdicionada = true;
-                            break;
-                        }
-                    }
-
-                    if(jaAdicionada){
-                        cout << "O conteudo ja esta na playlist" << endl;
-                    } else{
-                        playlistEscolhida->adicionarConteudo(&conteudo);
-                        cout << "Conteudo adicionado com sucesso!" << endl;
-                    }
+                }
+                if(!playlistEscolhida){
+                    cout << "Playlist de ID" << idEscolhido << " nao encontrada." << endl;
                     break;
+                }
+
+                cout << "Playlist " << playlistEscolhida->getNome() << " selecionada!" << endl;
+                const auto& conteudos = playlistEscolhida->getConteudos();
+                bool jaAdicionada = false;
+                for(const Conteudo* c : conteudos){
+                    if (c-> getId() == conteudo.getId()){
+                        jaAdicionada = true;
+                        break;
+                    }
+                }
+
+                if(jaAdicionada){
+                    cout << "O conteudo ja esta na playlist" << endl;
+                } else{
+                    playlistEscolhida->adicionarConteudo(&conteudo);
+                    cout << "Conteudo adicionado com sucesso!" << endl;
+                }
+                break;
             }
             default:{
                 break;
@@ -383,19 +382,21 @@ void menuUser(User& usuario, Catalogo& catalogo) {
                 int id = lerNum("Digite o ID do conteudo para ver os detalhes:");
                 Conteudo* c = catalogo.buscarConteudoId(id);
                 if (c) {
-                    menuConteudo(usuario, c, catalogo);
+                    menuConteudo(*c, usuario); //desreferenciando o ponteiro
                 } else {
                     cout << "Conteudo nao encontrado." << endl;
                 }
                 break;
             }
             case 5: { // Minhas playlists
-                cout << "\n--- Minhas Playlists ---" << endl;
-                for (const auto& p : playlists) {
-                    // Nota: A classe Playlist precisa de um getCriador()
-                    // p->exibir(); // A classe Playlist precisaria de um método exibir()
+                cout << "=======| Minhas playlists |======" << endl;
+                vector<Playlist*> playlists = usuario.getPlaylists();
+                for (const Playlist* p : playlists) {
+                    cout << "ID: " << p->getId() 
+                        << " | Nome: " << p->getNome() 
+                        << " | Quantidade de conteúdos: " << p->getConteudos().size() 
+                        << endl;
                 }
-                cout << "Funcionalidade de Playlist ainda em desenvolvimento." << endl;
                 break;
             }
             case 6: { // Minhas reviews
