@@ -54,9 +54,10 @@ void exibirMenuConteudoUsuario(){
     cout << "| 1 | Listar todos             ||" << endl;
     cout << "| 2 | Buscar por titulo        ||" << endl;
     cout << "| 3 | Buscar por genero        ||" << endl;
-    cout << "| 4 | Ver dtalhes/reviews      ||" << endl;
+    cout << "| 4 | Ver detalhes/reviews      ||" << endl;
     cout << "| 5 | Minhas playlists         ||" << endl; //exibe playlists
     cout << "| 6 | Minhas reviews           ||" << endl; //exibe todas as reviews associadas ao usuário, em ordem cronologica (mais novas primeiro)
+    cout << "| 7 | Editar meu Perfil        ||" << endl;
     cout << "| 0 | Voltar                   ||" << endl;
     cout << "+===+==========================++"<<endl;
 }
@@ -333,7 +334,7 @@ void menuUser(User& usuario, Catalogo& catalogo) {
     int opc;
     do {
         exibirMenuConteudoUsuario();
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 6);
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 7);
         switch (opc) {
             case 1: { // Listar todos
                 cout << "\n--- Lista de Todos os Conteudos ---" << endl;
@@ -386,12 +387,13 @@ void menuUser(User& usuario, Catalogo& catalogo) {
                     cout << "Voce ainda nao fez nenhuma review." << endl;
                 }
                 break;
-                case 7: {
+                            }
+            case 7: { //editar perfil
                     cout << "\n--- Editar Meu Perfil ---" << endl;
                     editarPerfilUsuario(usuario);
                         break;
-                }
             }
+
             case 0: cout << "Deslogando..." << endl; break;
         }
     } while (opc != 0);
