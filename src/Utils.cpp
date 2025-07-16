@@ -85,6 +85,7 @@ void exibirMenuConteudoAdmin()
     cout << "| 2 | Remover conteudo         ||" << endl;
     cout << "| 3 | Adicionar usuario        ||" << endl;
     cout << "| 4 | Remover usuario          ||" << endl;
+    cout << "| 5 | Atualizar conteudo       ||" << endl;
     cout << "| 0 | Voltar                   ||" << endl;
     cout << "+===+==========================++" << endl;
 }
@@ -499,7 +500,7 @@ void menuAdmin(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
     do
     {
         exibirMenuConteudoAdmin();
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 5);
         switch (opc)
         {
         case 1:
@@ -561,6 +562,17 @@ void menuAdmin(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
             }
             break;
         }
+            case 5: { // Este case está OK, mas não era acessível.
+                cout << "\n--- Atualizar Conteudo ---" << endl;
+                int idConteudo = lerNum("Digite o ID do conteudo a ser atualizado:");
+                Conteudo* conteudo = catalogo.buscarConteudoId(idConteudo);
+                if (conteudo) {
+                    atualizarDetalhesConteudo(conteudo);
+                } else {
+                    cout << "Conteudo com o ID especificado nao foi encontrado." << endl;
+                }
+                break;
+            }
         case 0:
             cout << "Deslogando..." << endl;
             break;
