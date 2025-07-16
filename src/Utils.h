@@ -30,6 +30,7 @@ void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 User* autenticarUsuario(const vector<unique_ptr<User>>& usuarios);
 void cadastrarUsuario(vector<unique_ptr<User>>& usuarios);
 void exibirTodosConteudos(const Catalogo& catalogo);
+void editarPerfilUsuario(User& usuario);
 
 // funções de navegação do menu 
 void menuInicial(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
