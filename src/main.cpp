@@ -15,6 +15,7 @@
 #include <algorithm>
 
 using namespace std;
+int proximoConteudoId = 1;
 
 vector<unique_ptr<Review>> reviews;
 vector<unique_ptr<Playlist>> playlists;
