@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
+#include <iomanip>
 
 int lerNum(string msg)
 {
@@ -70,7 +71,8 @@ void exibirMenuConteudoUsuario()
     cout << "| 4 | Ver detalhes/reviews      ||" << endl;
     cout << "| 5 | Minhas playlists         ||" << endl; // exibe playlists
     cout << "| 6 | Minhas reviews           ||" << endl; // exibe todas as reviews associadas ao usuário, em ordem cronologica (mais novas primeiro)
-    cout << "| 7 | Editar meu Perfil        ||" << endl;
+    cout << "| 7 | Exibir perfil            ||" << endl;
+    cout << "| 8 | Editar meu Perfil        ||" << endl;
     cout << "| 0 | Voltar                   ||" << endl;
     cout << "+===+==========================++" << endl;
 }
@@ -534,7 +536,7 @@ void menuUser(User &usuario, Catalogo &catalogo)
     do
     {
         exibirMenuConteudoUsuario();
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 7);
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 8);
         switch (opc)
         {
         case 1:
@@ -615,6 +617,20 @@ void menuUser(User &usuario, Catalogo &catalogo)
             break;
         }
         case 7:
+        {   
+            cout << "===================================================" << endl;
+            cout <<"||                   MEU PERFIL                    ||" << endl;
+            cout << "===================================================" << endl;
+            cout << left << setw(15) << "Nome:"      << usuario.getNome() << endl;
+            cout << left << setw(15) << "Plano:"     << usuario.getPlanoAssinatura()->getNome() << endl;
+            cout << left << setw(15) << "Email:"     << usuario.getEmail() << endl;
+            cout << left << setw(15) << "Senha:"     << usuario.getSenha() << endl;
+            cout << left << setw(15) << "Playlists:" << usuario.getPlaylists().size() << endl;
+            cout << left << setw(15) << "Reviews:"   << usuario.getReviews().size() << endl;
+            cout << "===================================================" << endl;
+            break;
+        }
+        case 8:
         { // editar perfil
             cout << "\n--- Editar Meu Perfil ---" << endl;
             editarPerfilUsuario(usuario);
