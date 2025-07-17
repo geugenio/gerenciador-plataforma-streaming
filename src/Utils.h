@@ -42,6 +42,7 @@ void menuUser(User& usuario, Catalogo& catalogo);
 void menuAdmin(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 void menuConteudo(Conteudo& conteudo, User& usuario);
 void menuPlaylists(User& usuario, Catalogo& catalogo);
+void gerenciarPlaylist(User& usuario, Playlist* playlist, Catalogo& catalogo);
 
 User* autenticarUsuario(const std::vector<std::unique_ptr<User>>& usuarios);
 void cadastrarUsuario(std::vector<std::unique_ptr<User>>& usuarios);
