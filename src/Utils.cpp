@@ -69,6 +69,18 @@ void exibirMenuDetalhesConteudo()
     cout << "+===+==========================++" << endl;
 }
 
+void exibirMenuPlaylists() {
+    cout << "++=============================++" << endl;
+    cout << "||        MINHAS PLAYLISTS     ||" << endl;
+    cout << "++==+==========================++" << endl;
+    cout << "| 1 | Listar Playlists         ||" << endl;
+    cout << "| 2 | Criar Nova Playlist      ||" << endl;
+    cout << "| 3 | Gerenciar Playlist       ||" << endl; // Para editar/remover conteúdos
+    cout << "| 4 | Remover Playlist         ||" << endl;
+    cout << "| 0 | Voltar                   ||" << endl;
+    cout << "+===+==========================++" << endl;
+}
+
 void exibirTodosConteudos(const Catalogo &catalogo)
 {
     const vector<Conteudo *> &conteudos = catalogo.getConteudos();
@@ -416,16 +428,8 @@ void menuUser(User &usuario, Catalogo &catalogo)
             break;
         }
         case 5:
-        { // Minhas playlists
-            cout << "=======| Minhas playlists |======" << endl;
-            vector<Playlist *> playlists = usuario.getPlaylists();
-            for (const Playlist *p : playlists)
-            {
-                cout << "ID: " << p->getId()
-                     << " | Nome: " << p->getNome()
-                     << " | Quantidade de conteúdos: " << p->getConteudos().size()
-                     << endl;
-            }
+        { // Minhas Playlists
+            menuPlaylists(usuario, catalogo); // Chama o novo submenu
             break;
         }
         case 6:
