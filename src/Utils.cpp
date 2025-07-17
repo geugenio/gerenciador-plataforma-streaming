@@ -3,45 +3,8 @@
 #include <memory>
 #include <algorithm>
 #include <stdexcept>
+#include <sstream>
 
-int lerNum(string msg)
-{
-    string in;
-    int num;
-    while (true)
-    {
-        cout << msg << endl;
-        getline(cin, in);
-        try
-        {
-            num = stoi(in);
-            break;
-        }
-        catch (const exception &e)
-        {
-            cout << "Entrada invalida! Por favor, insira um numero." << endl;
-        }
-    }
-    return num;
-}
-
-int lerNumIntervalo(string msg, int min, int max)
-{
-    int num;
-    while (true) {
-        try {
-            num = lerNum(msg);
-            if (num < min || num > max) {
-                // Lança uma exceção se o número estiver fora do intervalo
-                throw std::runtime_error("Entrada invalida, o numero precisa estar no intervalo (" + std::to_string(min) + " a " + std::to_string(max) + ").");
-            }
-            return num;
-        } catch (const std::runtime_error& e) {
-            // Captura a exceção e informa o usuário
-            cout << e.what() << endl;
-        }
-    }
-}
 
 string lerString(string msg)
 {
@@ -141,7 +104,7 @@ void editarPerfilUsuario(User &usuario)
         cout << "| 4 | Alterar Plano           ||" << endl;
         cout << "| 0 | Voltar                  ||" << endl;
         cout << "+===+==========================++" << endl;
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
+        opc = lerValorIntervalo<int>("Escolha uma opcao:", 0, 4);
 
         switch (opc)
         {
@@ -172,7 +135,7 @@ void editarPerfilUsuario(User &usuario)
             cout << "1. Simples (SD, 1 dispositivo)" << endl;
             cout << "2. Padrao (HD, 2 dispositivos)" << endl;
             cout << "3. Premium (4K, 4 dispositivos)" << endl;
-            int planoOpc = lerNumIntervalo("Opcao:", 1, 3);
+            int planoOpc = lerValorIntervalo<int>("Opcao:", 1, 3);
             Plano *novoPlano = nullptr;
             switch (planoOpc)
             {
@@ -246,7 +209,7 @@ void menuInicial(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
     do
     {
         exibirMenuLogin();
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 2);
+        opc = lerValorIntervalo<int>("Escolha uma opcao:", 0, 2);
         switch (opc)
         {
         case 1:
@@ -285,14 +248,14 @@ void menuConteudo(Conteudo &conteudo, User &usuario)
     do
     {
         exibirMenuDetalhesConteudo();
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
+        opc = lerValorIntervalo<int>("Escolha uma opcao:", 0, 4);
         switch (opc)
         {
         case 1:
         { // adicionando review
             cout << "=============|  Adicionar Review   |============" << endl;
             string resenha;
-            int estrela = lerNumIntervalo("Estrelas (1-5)", 1, 5);
+            int estrela = lerValorIntervalo<int>("Estrelas (1-5)", 1, 5);
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             cout << "Resenha: ";
             getline(cin, resenha);
@@ -309,7 +272,7 @@ void menuConteudo(Conteudo &conteudo, User &usuario)
             if (review)
             {
                 cout << "Review encontrada. Adicione novos dados." << endl;
-                int novaNota = lerNumIntervalo("Nova nota(1-5):", 1, 5);
+                int novaNota = lerValorIntervalo<int>("Nova nota(1-5):", 1, 5);
                 cout << "Nova Resenha: ";
                 string novaResenha;
                 getline(cin, novaResenha);
@@ -348,7 +311,7 @@ void menuConteudo(Conteudo &conteudo, User &usuario)
                      << endl;
             }
 
-            int idEscolhido = lerNum("Digite o ID da playlist para adicionar o conteudo:");
+            int idEscolhido = lerValor<int>("Digite o ID da playlist para adicionar o conteudo:");
 
             // Buscando
             Playlist *playlistEscolhida = nullptr;
@@ -403,7 +366,7 @@ void menuUser(User &usuario, Catalogo &catalogo)
     do
     {
         exibirMenuConteudoUsuario();
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 7);
+        opc = lerValorIntervalo<int>("Escolha uma opcao:", 0, 7);
         switch (opc)
         {
         case 1:
@@ -440,7 +403,7 @@ void menuUser(User &usuario, Catalogo &catalogo)
         }
         case 4:
         { // Ver detalhes/reviews
-            int id = lerNum("Digite o ID do conteudo para ver os detalhes:");
+            int id = lerValor<int>("Digite o ID do conteudo para ver os detalhes:");
             Conteudo *c = catalogo.buscarConteudoId(id);
             if (c)
             {
@@ -503,20 +466,19 @@ void menuAdmin(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
     do
     {
         exibirMenuConteudoAdmin();
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
+        opc = lerValorIntervalo<int>("Escolha uma opcao:", 0, 4);
         switch (opc)
         {
         case 1:
         { // Adicionar conteudo
-            int tipo = lerNumIntervalo("Adicionar (1) Filme ou (2) Serie?", 1, 2);
-            string titulo = lerString("Titulo:");
+            int tipo = lerValorIntervalo<int>("Adicionar (1) Filme ou (2) Serie?", 1, 2);
             string sinopse = lerString("Sinopse:");
             string diretor = lerString("Diretor:");
             string genero = lerString("Genero:");
             string subgenero = lerString("Subgenero:");
-            int ano = lerNum("Ano de Lancamento:");
+            int ano = lerValor<int>("Ano de Lancamento:");
             string classificacao = lerString("Classificacao:");
-            float duracao = stof(lerString("Duracao (minutos):"));
+            float duracao = lerValor<float>("Duracao (minutos):");
 
             if (tipo == 1)
             { // Filme
@@ -525,8 +487,8 @@ void menuAdmin(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
             }
             else
             { // Serie
-                int episodios = lerNum("Numero total de episodios:");
-                int temporadas = lerNum("Numero de temporadas:");
+                int episodios = lerValor<int>("Numero total de episodios:");
+                int temporadas = lerValor<int>("Numero de temporadas:");
                 catalogo.adicionarConteudo(new Serie(titulo, sinopse, diretor, {}, genero, subgenero, ano, classificacao, duracao, episodios, temporadas));
             }
             // A linha original que criava o Filme deve ser removida
@@ -535,10 +497,10 @@ void menuAdmin(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
         }
         case 2: {
                 cout << "\n--- Remover Conteudo ---" << endl;
-                int removerOpc = lerNumIntervalo("Remover por (1) ID ou (2) Titulo?", 1, 2);
+                int removerOpc = lerValorIntervalo<int>("Remover por (1) ID ou (2) Titulo?", 1, 2);
                 
                 if (removerOpc == 1) { // Remover por ID
-                    int id = lerNum("Digite o ID do conteudo a ser removido:");
+                    int id = lerValor<int>("Digite o ID do conteudo a ser removido:");
                     catalogo.removerConteudo(id); 
                 } else { // Remover por Titulo
                     string tituloBusca = lerString("Digite o titulo do conteudo a ser removido:");
@@ -552,7 +514,7 @@ void menuAdmin(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
                             cout << "ID: " << c->getId() << " | Titulo: " << c->getTitulo() << " | Genero: " << c->getGenero() << endl;
                         }
 
-                        int idRemover = lerNum("Digite o ID do conteudo EXATO para remover (ou 0 para cancelar):");
+                        int idRemover = lerValor<int>("Digite o ID do conteudo EXATO para remover (ou 0 para cancelar):");
                         if (idRemover != 0) {
                             bool idEncontradoNaBusca = false;
                             for (const auto& c : resultados) {
@@ -585,7 +547,7 @@ void menuAdmin(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
             {
                 cout << "ID: " << u->getId() << " | Nome: " << u->getNome() << " | Email: " << u->getEmail() << endl;
             }
-            int id = lerNum("Digite o ID do usuario a ser removido:");
+            int id = lerValor<int>("Digite o ID do usuario a ser removido:");
             auto it = remove_if(usuarios.begin(), usuarios.end(), [id](const unique_ptr<User> &u)
                                 { return u->getId() == id; });
             if (it != usuarios.end())
@@ -630,7 +592,7 @@ void cadastrarUsuario(vector<unique_ptr<User>> &usuarios)
     cout << "1. Simples (SD, 1 dispositivo)" << endl;
     cout << "2. Padrao (HD, 2 dispositivos)" << endl;
     cout << "3. Premium (4K, 4 dispositivos)" << endl;
-    int planoOpc = lerNumIntervalo("Opcao:", 1, 3);
+    int planoOpc = lerValorIntervalo<int>("Opcao:", 1, 3);
 
     Plano *planoAssinatura = nullptr;
     switch (planoOpc)
