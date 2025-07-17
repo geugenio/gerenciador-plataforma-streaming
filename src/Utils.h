@@ -28,6 +28,7 @@ void exibirMenuLogin();
 void exibirMenuConteudoUsuario();
 void exibirMenuConteudoAdmin();
 void exibirMenuDetalhesConteudo();
+void exibirMenuPlaylists();
 
 // funções de inicialização e gerenciamento
 void inicializarDados(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
@@ -40,6 +41,7 @@ void menuInicial(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 void menuUser(User& usuario, Catalogo& catalogo);
 void menuAdmin(Catalogo& catalogo, vector<unique_ptr<User>>& usuarios);
 void menuConteudo(Conteudo& conteudo, User& usuario);
+void menuPlaylists(User& usuario, Catalogo& catalogo);
 
 User* autenticarUsuario(const std::vector<std::unique_ptr<User>>& usuarios);
 void cadastrarUsuario(std::vector<std::unique_ptr<User>>& usuarios);
