@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
+#include <stdexcept>
 
 int lerNum(string msg)
 {
@@ -27,16 +28,19 @@ int lerNum(string msg)
 int lerNumIntervalo(string msg, int min, int max)
 {
     int num;
-    do
-    {
-        num = lerNum(msg);
-        if (num < min || num > max)
-        {
-            cout << "Entrada invalida, digite um numero dentro do intervalo"
-                 << "(" << min << " a " << max << ")." << endl;
+    while (true) {
+        try {
+            num = lerNum(msg);
+            if (num < min || num > max) {
+                // Lança uma exceção se o número estiver fora do intervalo
+                throw std::runtime_error("Entrada invalida, o numero precisa estar no intervalo (" + std::to_string(min) + " a " + std::to_string(max) + ").");
+            }
+            return num;
+        } catch (const std::runtime_error& e) {
+            // Captura a exceção e informa o usuário
+            cout << e.what() << endl;
         }
-    } while (num < min || num > max);
-    return num;
+    }
 }
 
 string lerString(string msg)
