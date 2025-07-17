@@ -101,6 +101,7 @@ void exibirMenuDetalhesConteudo()
     cout << "| 2 | Atualizar review        ||" << endl;
     cout << "| 3 | Ler reviews             ||" << endl; // exibe todas as avaliações em uma lista
     cout << "| 4 | Adicionar a playlist    ||" << endl; //(aqui pode exibir o nome e o id das playlists do usuario, ai pergunta qual q quer inserir)
+    cout << "| 5 | Remover review          ||" << endl;
     cout << "| 0 | Voltar                  ||" << endl;
     cout << "+===+==========================++" << endl;
 }
@@ -418,7 +419,7 @@ void menuConteudo(Conteudo &conteudo, User &usuario)
     do
     {
         exibirMenuDetalhesConteudo();
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 5);
         switch (opc)
         {
         case 1:
@@ -521,7 +522,31 @@ void menuConteudo(Conteudo &conteudo, User &usuario)
                 cout << "Conteudo adicionado com sucesso!" << endl;
             }
             break;
-        }
+              }
+case 5:{ // Remover review
+                Review* reviewExistente = usuario.buscarReviewPorConteudo(&conteudo);
+                if(reviewExistente){
+                    cout << "Tem certeza que deseja remover esta review? (1-Sim / 0-Nao): ";
+                    int confirmacao = lerNumIntervalo("", 0, 1);
+                    if(confirmacao == 1){
+                        usuario.removerReview(reviewExistente);
+                        conteudo.removerReview(reviewExistente);
+                        auto it_global = std::remove_if(reviews.begin(), reviews.end(), 
+                            [reviewExistente](const unique_ptr<Review>& r_ptr){ return r_ptr.get() == reviewExistente; });
+                        if(it_global != reviews.end()){
+                            reviews.erase(it_global, reviews.end()); 
+                            cout << "Review removida e memoria liberada com sucesso." << endl;
+                        } else {
+                            cout << "Erro: Review nao encontrada no gerenciador global. Vazamento de memoria pode ocorrer." << endl;
+                        }
+                    } else {
+                        cout << "Remocao da review cancelada." << endl;
+                    }
+                } else {
+                    cout << "Voce nao possui uma review para este conteudo para remover." << endl;
+                }
+                break;
+            }
         default:
         {
             break;
