@@ -93,3 +93,10 @@ void Conteudo::exibirReviews() const{
         cout << "--------------------------" << endl;
     }
 }
+
+void Conteudo::removerReview(Review* reviewToRemove) {
+    auto it = std::remove(reviews.begin(), reviews.end(), reviewToRemove);
+    if (it != reviews.end()) {
+        reviews.erase(it, reviews.end());
+    }
+}
