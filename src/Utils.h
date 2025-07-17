@@ -13,26 +13,6 @@
 #include "Serie.h"
 #include "Review.h"
 
-template<typename T>
-T* buscarPorId(const std::vector<T*>& container, int id) {
-    for (T* elemento : container) {
-        if (elemento->getId() == id) {
-            return elemento;
-        }
-    }
-    return nullptr;
-}
-
-template<typename T>
-T* buscarPorId(const std::vector<std::unique_ptr<T>>& container, int id) {
-    for (const auto& elemento : container) {
-        if (elemento->getId() == id) {
-            return elemento.get();
-        }
-    }
-    return nullptr;
-}
-
 using namespace std;
 
 extern int proximoConteudoId;
