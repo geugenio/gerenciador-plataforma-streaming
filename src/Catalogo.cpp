@@ -1,6 +1,7 @@
 #include "Catalogo.h"
 #include <vector>
 #include <algorithm> // std::remove_if
+#include "Utils.h"
 
 using namespace std;
 
@@ -63,6 +64,11 @@ Conteudo* Catalogo::buscarConteudoId(int id) const {
     return nullptr;
 }
 
+Conteudo* Catalogo::buscarConteudoId(int id) const {
+    return buscarPorId(conteudos, id);
+}
+
 const vector<Conteudo*>& Catalogo::getConteudos() const {
     return conteudos;
 }
+
