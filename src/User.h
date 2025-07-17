@@ -43,11 +43,9 @@ class User{
         void exibir() const;
         bool autenticar(std::string e, std::string s) const;
         void addReview(Review* review);
-        void removerReview(Review* reviewToRemove);
         void addPlaylist(Playlist* playlist);
         void removerPlaylistPorId(int idPlaylist);
         const std::vector<Playlist*>& getPlaylists() const;
         Review* buscarReviewPorConteudo(Conteudo* conteudo) const;
-
-    
+        
 };

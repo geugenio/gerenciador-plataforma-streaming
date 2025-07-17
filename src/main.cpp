@@ -15,9 +15,6 @@
 #include <string>
 #include <algorithm>
 
-#include <cstdlib>
-#include <clocale>
-
 using namespace std;
 int proximoConteudoId = 1;
 
@@ -37,10 +34,6 @@ int lerNumIntervalo(string msg, int min, int max);
 string lerString(string msg);
 
 int main() {
-    //Configurações base para acentuação no console
-    system("chcp 65001 > nul");
-    setlocale(LC_ALL, "pt_BR.UTF-8");
-
     Catalogo catalogo;
     vector<unique_ptr<User>> usuarios;
 

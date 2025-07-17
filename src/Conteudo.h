@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include "Review.h"
-#include <algorithm>
 
 class Conteudo{
     protected:
@@ -25,7 +24,6 @@ class Conteudo{
         Conteudo(std::string titulo, std::string sinopse, std::string diretor, std::vector<std::string> elenco, 
             std::string genero, std::string subgenero, int anoLancamento, std::string classificacao, float duracao);
         Conteudo() = default;
-        
 
         //Destrutor default
         virtual ~Conteudo() = default;
@@ -46,10 +44,9 @@ class Conteudo{
         void setClassificacao(const std::string& classificacao);
         void setDuracao(float duracao);
 
-
         // Métodos
         virtual void exibir() const;
         void addReview(Review* review);
         void exibirReviews() const;
-        void removerReview(Review* reviewToRemove);
+
 };

@@ -7,7 +7,8 @@
 #include "Conteudo.h"
 #include "Utils.h"
 #include <iostream>
-#include <algorithm>
+
+
 
 
 
@@ -82,13 +83,6 @@ Review* User::buscarReviewPorConteudo(Conteudo* conteudo) const {
         }
     }
     return nullptr;
-}
-
-void User::removerReview(Review* reviewToRemove) {
-    auto it = std::remove(reviews.begin(), reviews.end(), reviewToRemove);
-    if (it != reviews.end()) {
-        reviews.erase(it, reviews.end());
-    }
 }
 
 void User::addPlaylist(Playlist* playlist) {

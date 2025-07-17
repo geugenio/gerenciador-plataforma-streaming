@@ -1,7 +1,6 @@
-#include <iostream>
 #include "Filme.h"
 
-using namespace std;
+
 Filme::Filme() : Conteudo() {
     this->premiacoes = "";
 }

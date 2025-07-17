@@ -2,7 +2,6 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
-#include <iomanip>
 
 int lerNum(string msg)
 {
@@ -71,8 +70,7 @@ void exibirMenuConteudoUsuario()
     cout << "| 4 | Ver detalhes/reviews      ||" << endl;
     cout << "| 5 | Minhas playlists         ||" << endl; // exibe playlists
     cout << "| 6 | Minhas reviews           ||" << endl; // exibe todas as reviews associadas ao usuário, em ordem cronologica (mais novas primeiro)
-    cout << "| 7 | Exibir perfil            ||" << endl;
-    cout << "| 8 | Editar meu Perfil        ||" << endl;
+    cout << "| 7 | Editar meu Perfil        ||" << endl;
     cout << "| 0 | Voltar                   ||" << endl;
     cout << "+===+==========================++" << endl;
 }
@@ -87,7 +85,6 @@ void exibirMenuConteudoAdmin()
     cout << "| 2 | Remover conteudo         ||" << endl;
     cout << "| 3 | Adicionar usuario        ||" << endl;
     cout << "| 4 | Remover usuario          ||" << endl;
-    cout << "| 5 | Atualizar conteudo       ||" << endl;
     cout << "| 0 | Voltar                   ||" << endl;
     cout << "+===+==========================++" << endl;
 }
@@ -101,7 +98,6 @@ void exibirMenuDetalhesConteudo()
     cout << "| 2 | Atualizar review        ||" << endl;
     cout << "| 3 | Ler reviews             ||" << endl; // exibe todas as avaliações em uma lista
     cout << "| 4 | Adicionar a playlist    ||" << endl; //(aqui pode exibir o nome e o id das playlists do usuario, ai pergunta qual q quer inserir)
-    cout << "| 5 | Remover review          ||" << endl;
     cout << "| 0 | Voltar                  ||" << endl;
     cout << "+===+==========================++" << endl;
 }
@@ -200,140 +196,6 @@ void editarPerfilUsuario(User &usuario)
     } while (opc != 0);
 }
 
-void atualizarDetalhesConteudo(Conteudo* conteudo) {
-    cout << "\n--- Atualizar Detalhes do Conteudo (ID: " << conteudo->getId() << ", Titulo: " << conteudo->getTitulo() << ") ---" << endl;
-    int opc;
-    do {
-        cout << "++================================++" << endl;
-        cout << "||     ATUALIZAR CONTEÚDO         ||" << endl;
-        cout << "++==+=============================++" << endl;
-        cout << "| 1 | Alterar Titulo              ||" << endl;
-        cout << "| 2 | Alterar Sinopse             ||" << endl;
-        cout << "| 3 | Alterar Diretor             ||" << endl;
-        cout << "| 4 | Alterar Elenco              ||" << endl;
-        cout << "| 5 | Alterar Genero              ||" << endl;
-        cout << "| 6 | Alterar Subgenero           ||" << endl;
-        cout << "| 7 | Alterar Ano Lancamento      ||" << endl;
-        cout << "| 8 | Alterar Classificacao       ||" << endl;
-        cout << "| 9 | Alterar Duracao             ||" << endl;
-
-        Filme* filme = dynamic_cast<Filme*>(conteudo);
-        Serie* serie = dynamic_cast<Serie*>(conteudo);
-
-        if (filme) {
-            cout << "| 10| Alterar Premiacoes          ||" << endl;
-        } else if (serie) {
-            cout << "| 10| Alterar Episodios Totais    ||" << endl;
-            cout << "| 11| Alterar Temporadas          ||" << endl;
-        }
-        cout << "| 0 | Voltar                      ||" << endl;
-        cout << "+===+=============================++" << endl;
-
-        int max_opc = 9;
-        if (filme) max_opc = 10;
-        else if (serie) max_opc = 11;
-
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, max_opc);
-
-        switch (opc) {
-            case 1: {
-                string novoTitulo = lerString("Digite o novo titulo:");
-                conteudo->setTitulo(novoTitulo);
-                cout << "Titulo atualizado!" << endl;
-                break;
-            }
-            case 2: {
-                string novaSinopse = lerString("Digite a nova sinopse:");
-                conteudo->setSinopse(novaSinopse);
-                cout << "Sinopse atualizada!" << endl;
-                break;
-            }
-            case 3: {
-                string novoDiretor = lerString("Digite o novo diretor:");
-                conteudo->setDiretor(novoDiretor);
-                cout << "Diretor atualizado!" << endl;
-                break;
-            }
-            case 4: {
-                // Implementação simples: substitui todo o elenco.
-                string elencoString = lerString("Digite o novo elenco (separado por virgulas):");
-                vector<string> novoElenco;
-                stringstream ss(elencoString);
-                string ator;
-                while (getline(ss, ator, ',')) {
-                    ator.erase(0, ator.find_first_not_of(" \t\n\r\f\v"));
-                    ator.erase(ator.find_last_not_of(" \t\n\r\f\v") + 1);
-                    if (!ator.empty()) {
-                        novoElenco.push_back(ator);
-                    }
-                }
-                conteudo->setElenco(novoElenco);
-                cout << "Elenco atualizado!" << endl;
-                break;
-            }
-            case 5: {
-                string novoGenero = lerString("Digite o novo genero:");
-                conteudo->setGenero(novoGenero);
-                cout << "Genero atualizado!" << endl;
-                break;
-            }
-            case 6: {
-                string novoSubgenero = lerString("Digite o novo subgenero:");
-                conteudo->setSubgenero(novoSubgenero);
-                cout << "Subgenero atualizado!" << endl;
-                break;
-            }
-            case 7: {
-                int novoAno = lerNum("Digite o novo ano de lancamento:");
-                conteudo->setAnoLancamento(novoAno);
-                cout << "Ano de lancamento atualizado!" << endl;
-                break;
-            }
-            case 8: {
-                string novaClassificacao = lerString("Digite a nova classificacao:");
-                conteudo->setClassificacao(novaClassificacao);
-                cout << "Classificacao atualizada!" << endl;
-                break;
-            }
-            case 9: {
-                float novaDuracao = stof(lerString("Digite a nova duracao (minutos):"));
-                conteudo->setDuracao(novaDuracao);
-                cout << "Duracao atualizada!" << endl;
-                break;
-            }
-            case 10: {
-                if (filme) {
-                    string novasPremiacoes = lerString("Digite as novas premiacoes:");
-                    filme->setPremiacoes(novasPremiacoes);
-                    cout << "Premiacoes atualizadas!" << endl;
-                } else if (serie) {
-                    int novosEpisodios = lerNum("Digite o novo numero total de episodios:");
-                    serie->setEpisodiosTotais(novosEpisodios);
-                    cout << "Episodios totais atualizados!" << endl;
-                }
-                break;
-            }
-            case 11: {
-                if (serie) {
-                    int novasTemporadas = lerNum("Digite o novo numero de temporadas:");
-                    serie->setTemporadas(novasTemporadas);
-                    cout << "Temporadas atualizadas!" << endl;
-                }
-                break;
-            }
-            case 0:
-                cout << "Voltando..." << endl;
-                break;
-            default:
-                cout << "Opcao invalida." << endl;
-                break;
-        }
-        cout << "------------------------------------------" << endl;
-        conteudo->exibir();
-        cout << "------------------------------------------" << endl;
-    } while (opc != 0);
-}
-
 // funções de inicialização e gerenciamento
 void inicializarDados(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
 {
@@ -419,7 +281,7 @@ void menuConteudo(Conteudo &conteudo, User &usuario)
     do
     {
         exibirMenuDetalhesConteudo();
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 5);
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
         switch (opc)
         {
         case 1:
@@ -522,31 +384,7 @@ void menuConteudo(Conteudo &conteudo, User &usuario)
                 cout << "Conteudo adicionado com sucesso!" << endl;
             }
             break;
-              }
-case 5:{ // Remover review
-                Review* reviewExistente = usuario.buscarReviewPorConteudo(&conteudo);
-                if(reviewExistente){
-                    cout << "Tem certeza que deseja remover esta review? (1-Sim / 0-Nao): ";
-                    int confirmacao = lerNumIntervalo("", 0, 1);
-                    if(confirmacao == 1){
-                        usuario.removerReview(reviewExistente);
-                        conteudo.removerReview(reviewExistente);
-                        auto it_global = std::remove_if(reviews.begin(), reviews.end(), 
-                            [reviewExistente](const unique_ptr<Review>& r_ptr){ return r_ptr.get() == reviewExistente; });
-                        if(it_global != reviews.end()){
-                            reviews.erase(it_global, reviews.end()); 
-                            cout << "Review removida e memoria liberada com sucesso." << endl;
-                        } else {
-                            cout << "Erro: Review nao encontrada no gerenciador global. Vazamento de memoria pode ocorrer." << endl;
-                        }
-                    } else {
-                        cout << "Remocao da review cancelada." << endl;
-                    }
-                } else {
-                    cout << "Voce nao possui uma review para este conteudo para remover." << endl;
-                }
-                break;
-            }
+        }
         default:
         {
             break;
@@ -561,7 +399,7 @@ void menuUser(User &usuario, Catalogo &catalogo)
     do
     {
         exibirMenuConteudoUsuario();
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 8);
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 7);
         switch (opc)
         {
         case 1:
@@ -642,20 +480,6 @@ void menuUser(User &usuario, Catalogo &catalogo)
             break;
         }
         case 7:
-        {   
-            cout << "===================================================" << endl;
-            cout <<"||                   MEU PERFIL                    ||" << endl;
-            cout << "===================================================" << endl;
-            cout << left << setw(15) << "Nome:"      << usuario.getNome() << endl;
-            cout << left << setw(15) << "Plano:"     << usuario.getPlanoAssinatura()->getNome() << endl;
-            cout << left << setw(15) << "Email:"     << usuario.getEmail() << endl;
-            cout << left << setw(15) << "Senha:"     << usuario.getSenha() << endl;
-            cout << left << setw(15) << "Playlists:" << usuario.getPlaylists().size() << endl;
-            cout << left << setw(15) << "Reviews:"   << usuario.getReviews().size() << endl;
-            cout << "===================================================" << endl;
-            break;
-        }
-        case 8:
         { // editar perfil
             cout << "\n--- Editar Meu Perfil ---" << endl;
             editarPerfilUsuario(usuario);
@@ -675,7 +499,7 @@ void menuAdmin(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
     do
     {
         exibirMenuConteudoAdmin();
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 5);
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
         switch (opc)
         {
         case 1:
@@ -737,17 +561,6 @@ void menuAdmin(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
             }
             break;
         }
-            case 5: { // Este case está OK, mas não era acessível.
-                cout << "\n--- Atualizar Conteudo ---" << endl;
-                int idConteudo = lerNum("Digite o ID do conteudo a ser atualizado:");
-                Conteudo* conteudo = catalogo.buscarConteudoId(idConteudo);
-                if (conteudo) {
-                    atualizarDetalhesConteudo(conteudo);
-                } else {
-                    cout << "Conteudo com o ID especificado nao foi encontrado." << endl;
-                }
-                break;
-            }
         case 0:
             cout << "Deslogando..." << endl;
             break;
