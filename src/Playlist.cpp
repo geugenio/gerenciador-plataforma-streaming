@@ -40,6 +40,10 @@ std::vector<Conteudo*> Playlist::getConteudos() const{
     return conteudos;
 }
 
+void Playlist::setNome(const std::string& novoNome) {
+    this->nome = novoNome;
+}
+
 void Playlist::removerConteudo(Conteudo* conteudo) {
     for (size_t i = 0; i < conteudos.size(); ++i) {
         if (conteudos[i] == conteudo) {
