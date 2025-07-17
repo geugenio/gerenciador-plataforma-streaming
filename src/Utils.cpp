@@ -495,12 +495,65 @@ void menuPlaylists(User& usuario, Catalogo& catalogo) {
                 cout << "Playlist '" << nomePlaylist << "' criada com sucesso!" << endl;
                 break;
             }
-            case 3: { // Gerenciar Playlist (U - Update - adicionar/remover conteúdo, renomear)
-                // Implementação abaixo (U - Update)
+            case 3: { // Gerenciar Playlist
+                const vector<Playlist*>& userPlaylists = usuario.getPlaylists();
+                if (userPlaylists.empty()) {
+                    cout << "Voce nao tem playlists para gerenciar ainda!" << endl;
+                    break;
+                }
+
+                cout << "=======| Suas Playlists |======" << endl;
+                for (const Playlist* p : userPlaylists) {
+                    cout << "ID: " << p->getId()
+                             << " | Nome: " << p->getNome()
+                             << " | Quantidade de conteudos: " << p->getConteudos().size()
+                             << endl;
+                }
+                int idPlaylistGerenciar = lerNum("Digite o ID da playlist que deseja gerenciar:");
+
+                Playlist* playlistGerenciar = nullptr;
+                for (Playlist* p : userPlaylists) {
+                    if (p->getId() == idPlaylistGerenciar) {
+                        playlistGerenciar = p;
+                        break;
+                    }
+                }
+
+                if (playlistGerenciar) {
+                    gerenciarPlaylist(usuario, playlistGerenciar, catalogo);
+                } else {
+                    cout << "Playlist com o ID especificado nao foi encontrada." << endl;
+                }
                 break;
             }
-            case 4: { // Remover Playlist (D - Delete)
-                // Implementação abaixo (D - Delete)
+            case 4: { // Remover Playlist
+                const vector<Playlist*>& userPlaylists = usuario.getPlaylists();
+                if (userPlaylists.empty()) {
+                    cout << "Voce nao tem playlists para remover ainda!" << endl;
+                    break;
+                }
+
+                cout << "=======| Suas Playlists |======" << endl;
+                for (const Playlist* p : userPlaylists) {
+                    cout << "ID: " << p->getId()
+                             << " | Nome: " << p->getNome()
+                             << " | Quantidade de conteudos: " << p->getConteudos().size()
+                             << endl;
+                }
+                int idPlaylistRemover = lerNum("Digite o ID da playlist que deseja remover:");
+
+                usuario.removerPlaylistPorId(idPlaylistRemover);
+
+                auto it = std::remove_if(playlists.begin(), playlists.end(),
+                                         [idPlaylistRemover](const std::unique_ptr<Playlist>& p) {
+                                             return p->getId() == idPlaylistRemover;
+                                         });
+                if (it != playlists.end()) {
+                    playlists.erase(it, playlists.end());
+                    cout << "Playlist removida com sucesso (ID: " << idPlaylistRemover << ")!" << endl;
+                } else {
+                    cout << "Playlist com o ID especificado nao encontrada no sistema." << endl;
+                }
                 break;
             }
             case 0:
@@ -511,7 +564,103 @@ void menuPlaylists(User& usuario, Catalogo& catalogo) {
                 break;
         }
     } while (opc != 0);
-} 
+}
+        
+void gerenciarPlaylist(User& usuario, Playlist* playlist, Catalogo& catalogo) {
+    int opc;
+    do {
+        cout << "++=============================++" << endl;
+        cout << "||  GERENCIAR PLAYLIST: " << playlist->getNome() << " ||" << endl;
+        cout << "++==+==========================++" << endl;
+        cout << "| 1 | Exibir Conteudos         ||" << endl;
+        cout << "| 2 | Adicionar Conteudo       ||" << endl;
+        cout << "| 3 | Remover Conteudo         ||" << endl;
+        cout << "| 4 | Renomear Playlist        ||" << endl;
+        cout << "| 0 | Voltar                   ||" << endl;
+        cout << "+===+==========================++" << endl;
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
+
+        switch (opc) {
+            case 1: { // Exibir Conteúdos
+                const vector<Conteudo*>& conteudosPlaylist = playlist->getConteudos();
+                if (conteudosPlaylist.empty()) {
+                    cout << "A playlist esta vazia." << endl;
+                } else {
+                    cout << "--- Conteudos da Playlist ---" << endl;
+                    for (const auto& c : conteudosPlaylist) {
+                        cout << "ID: " << c->getId() << " | Titulo: " << c->getTitulo() << endl;
+                    }
+                }
+                break;
+            }
+            case 2: { // Adicionar Conteúdo
+                exibirTodosConteudos(catalogo); // Opcional: mostrar todos os conteúdos disponíveis
+                int idConteudoAdd = lerNum("Digite o ID do conteudo para adicionar a playlist:");
+                Conteudo* conteudoAdd = catalogo.buscarConteudoId(idConteudoAdd);
+                if (conteudoAdd) {
+                    bool jaAdicionada = false;
+                    for (const Conteudo *c : playlist->getConteudos()) {
+                        if (c->getId() == conteudoAdd->getId()) {
+                            jaAdicionada = true;
+                            break;
+                        }
+                    }
+                    if (jaAdicionada) {
+                        cout << "O conteudo ja esta na playlist" << endl;
+                    } else {
+                        playlist->adicionarConteudo(conteudoAdd);
+                        cout << "Conteudo adicionado com sucesso!" << endl;
+                    }
+                } else {
+                    cout << "Conteudo nao encontrado." << endl;
+                }
+                break;
+            }
+            case 3: { // Remover Conteúdo
+                const vector<Conteudo*>& conteudosPlaylist = playlist->getConteudos();
+                if (conteudosPlaylist.empty()) {
+                    cout << "A playlist esta vazia. Nao ha conteudos para remover." << endl;
+                    break;
+                }
+                cout << "--- Conteudos da Playlist ---" << endl;
+                for (const auto& c : conteudosPlaylist) {
+                    cout << "ID: " << c->getId() << " | Titulo: " << c->getTitulo() << endl;
+                }
+                int idConteudoRemover = lerNum("Digite o ID do conteudo para remover da playlist:");
+                Conteudo* conteudoRemover = nullptr;
+                for (Conteudo* c : playlist->getConteudos()) {
+                    if (c->getId() == idConteudoRemover) {
+                        conteudoRemover = c;
+                        break;
+                    }
+                }
+                if (conteudoRemover) {
+                    try {
+                        playlist->removerConteudo(conteudoRemover);
+                        cout << "Conteudo removido com sucesso!" << endl;
+                    } catch (const std::runtime_error& e) {
+                        cout << "Erro: " << e.what() << endl;
+                    }
+                } else {
+                    cout << "Conteudo com o ID especificado nao encontrado na playlist." << endl;
+                }
+                break;
+            }
+            case 4: { // Renomear Playlist
+                string novoNome = lerString("Digite o novo nome para a playlist:");
+                playlist->setNome(novoNome);
+                cout << "Playlist renomeada para '" << novoNome << "' com sucesso!" << endl;
+                break;
+            }
+            case 0:
+                cout << "Voltando..." << endl;
+                break;
+            default:
+                cout << "Opcao invalida." << endl;
+                break;
+        }
+    } while (opc != 0);
+}        
 
 void menuAdmin(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
 {
