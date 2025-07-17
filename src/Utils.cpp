@@ -464,6 +464,55 @@ void menuUser(User &usuario, Catalogo &catalogo)
     } while (opc != 0);
 }
 
+void menuPlaylists(User& usuario, Catalogo& catalogo) {
+    int opc;
+    do {
+        exibirMenuPlaylists();
+        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
+        switch (opc) {
+            case 1: { // Listar Playlists
+                cout << "=======| Minhas playlists |======" << endl;
+                const vector<Playlist*>& playlists = usuario.getPlaylists();
+                if (playlists.empty()) {
+                    cout << "Voce nao tem playlists ainda!" << endl;
+                } else {
+                    for (const Playlist* p : playlists) {
+                        cout << "ID: " << p->getId()
+                             << " | Nome: " << p->getNome()
+                             << " | Quantidade de conteudos: " << p->getConteudos().size()
+                             << endl;
+                    }
+                }
+                break;
+            }
+            case 2: { // Criar Nova Playlist
+                string nomePlaylist = lerString("Digite o nome da nova playlist:");
+                auto novaPlaylistPtr = std::make_unique<Playlist>(nomePlaylist, &usuario);
+                usuario.addPlaylist(novaPlaylistPtr.get());
+
+                playlists.push_back(std::move(novaPlaylistPtr));
+
+                cout << "Playlist '" << nomePlaylist << "' criada com sucesso!" << endl;
+                break;
+            }
+            case 3: { // Gerenciar Playlist (U - Update - adicionar/remover conteúdo, renomear)
+                // Implementação abaixo (U - Update)
+                break;
+            }
+            case 4: { // Remover Playlist (D - Delete)
+                // Implementação abaixo (D - Delete)
+                break;
+            }
+            case 0:
+                cout << "Voltando ao menu principal..." << endl;
+                break;
+            default:
+                cout << "Opcao invalida." << endl;
+                break;
+        }
+    } while (opc != 0);
+} 
+
 void menuAdmin(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
 {
     int opc;
