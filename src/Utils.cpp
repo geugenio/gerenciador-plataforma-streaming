@@ -34,9 +34,9 @@ void exibirMenuConteudoUsuario()
     cout << "| 1 | Listar todos             ||" << endl;
     cout << "| 2 | Buscar por titulo        ||" << endl;
     cout << "| 3 | Buscar por genero        ||" << endl;
-    cout << "| 4 | Ver detalhes/reviews      ||" << endl;
-    cout << "| 5 | Minhas playlists         ||" << endl; // exibe playlists
-    cout << "| 6 | Minhas reviews           ||" << endl; // exibe todas as reviews associadas ao usuário, em ordem cronologica (mais novas primeiro)
+    cout << "| 4 | Ver detalhes/reviews     ||" << endl;
+    cout << "| 5 | Minhas playlists         ||" << endl;
+    cout << "| 6 | Minhas reviews           ||" << endl; 
     cout << "| 7 | Editar meu Perfil        ||" << endl;
     cout << "| 0 | Voltar                   ||" << endl;
     cout << "+===+==========================++" << endl;
@@ -61,10 +61,11 @@ void exibirMenuDetalhesConteudo()
     cout << "++============================++" << endl;
     cout << "||    DETALHES DO CONTEÚDO    ||" << endl;
     cout << "++==+=========================++" << endl;
-    cout << "| 1 | Adicionar review        ||" << endl; // adiciona uma nova review
+    cout << "| 1 | Adicionar review        ||" << endl; 
     cout << "| 2 | Atualizar review        ||" << endl;
-    cout << "| 3 | Ler reviews             ||" << endl; // exibe todas as avaliações em uma lista
-    cout << "| 4 | Adicionar a playlist    ||" << endl; //(aqui pode exibir o nome e o id das playlists do usuario, ai pergunta qual q quer inserir)
+    cout << "| 3 | Ler reviews             ||" << endl; 
+    cout << "| 4 | Adicionar a playlist    ||" << endl; 
+    cout << "| 5 | Remover review          ||" << endl;
     cout << "| 0 | Voltar                  ||" << endl;
     cout << "+===+==========================++" << endl;
 }
@@ -260,7 +261,7 @@ void menuConteudo(Conteudo &conteudo, User &usuario)
     do
     {
         exibirMenuDetalhesConteudo();
-        opc = lerValorIntervalo<int>("Escolha uma opcao:", 0, 4);
+        opc = lerValorIntervalo<int>("Escolha uma opcao:", 0, 5);
         switch (opc)
         {
         case 1:
@@ -268,7 +269,6 @@ void menuConteudo(Conteudo &conteudo, User &usuario)
             cout << "=============|  Adicionar Review   |============" << endl;
             string resenha;
             int estrela = lerValorIntervalo<int>("Estrelas (1-5)", 1, 5);
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             cout << "Resenha: ";
             getline(cin, resenha);
             Review *novaReview = new Review(&usuario, &conteudo, estrela, resenha);
@@ -361,6 +361,19 @@ void menuConteudo(Conteudo &conteudo, User &usuario)
             {
                 playlistEscolhida->adicionarConteudo(&conteudo);
                 cout << "Conteudo adicionado com sucesso!" << endl;
+            }
+            break;
+        }
+        case 5: //Remover review
+        {
+            int reviewId = lerValor<int>("Digite o ID da review que deseja remover:");
+            Review* reviewParaRemover = usuario.buscarReviewPorId(reviewId);
+            if (reviewParaRemover != nullptr) {
+                usuario.removerReview(reviewParaRemover);
+                conteudo.removerReview(reviewParaRemover);
+                cout << "Review removida com sucesso!" << endl;
+            } else {
+                cout << "Review nao encontrada." << endl;
             }
             break;
         }
@@ -468,7 +481,7 @@ void menuPlaylists(User& usuario, Catalogo& catalogo) {
     int opc;
     do {
         exibirMenuPlaylists();
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
+        opc = lerValorIntervalo<int>("Escolha uma opcao:", 0, 4);
         switch (opc) {
             case 1: { // Listar Playlists
                 cout << "=======| Minhas playlists |======" << endl;
@@ -509,7 +522,7 @@ void menuPlaylists(User& usuario, Catalogo& catalogo) {
                              << " | Quantidade de conteudos: " << p->getConteudos().size()
                              << endl;
                 }
-                int idPlaylistGerenciar = lerNum("Digite o ID da playlist que deseja gerenciar:");
+                int idPlaylistGerenciar = lerValor<int>("Digite o ID da playlist que deseja gerenciar:");
 
                 Playlist* playlistGerenciar = nullptr;
                 for (Playlist* p : userPlaylists) {
@@ -540,7 +553,7 @@ void menuPlaylists(User& usuario, Catalogo& catalogo) {
                              << " | Quantidade de conteudos: " << p->getConteudos().size()
                              << endl;
                 }
-                int idPlaylistRemover = lerNum("Digite o ID da playlist que deseja remover:");
+                int idPlaylistRemover = lerValor<int>("Digite o ID da playlist que deseja remover:");
 
                 usuario.removerPlaylistPorId(idPlaylistRemover);
 
@@ -578,7 +591,7 @@ void gerenciarPlaylist(User& usuario, Playlist* playlist, Catalogo& catalogo) {
         cout << "| 4 | Renomear Playlist        ||" << endl;
         cout << "| 0 | Voltar                   ||" << endl;
         cout << "+===+==========================++" << endl;
-        opc = lerNumIntervalo("Escolha uma opcao:", 0, 4);
+        opc = lerValorIntervalo<int>("Escolha uma opcao:", 0, 4);
 
         switch (opc) {
             case 1: { // Exibir Conteúdos
@@ -595,7 +608,7 @@ void gerenciarPlaylist(User& usuario, Playlist* playlist, Catalogo& catalogo) {
             }
             case 2: { // Adicionar Conteúdo
                 exibirTodosConteudos(catalogo); // Opcional: mostrar todos os conteúdos disponíveis
-                int idConteudoAdd = lerNum("Digite o ID do conteudo para adicionar a playlist:");
+                int idConteudoAdd = lerValor<int>("Digite o ID do conteudo para adicionar a playlist:");
                 Conteudo* conteudoAdd = catalogo.buscarConteudoId(idConteudoAdd);
                 if (conteudoAdd) {
                     bool jaAdicionada = false;
@@ -626,7 +639,7 @@ void gerenciarPlaylist(User& usuario, Playlist* playlist, Catalogo& catalogo) {
                 for (const auto& c : conteudosPlaylist) {
                     cout << "ID: " << c->getId() << " | Titulo: " << c->getTitulo() << endl;
                 }
-                int idConteudoRemover = lerNum("Digite o ID do conteudo para remover da playlist:");
+                int idConteudoRemover = lerValor<int>("Digite o ID do conteudo para remover da playlist:");
                 Conteudo* conteudoRemover = nullptr;
                 for (Conteudo* c : playlist->getConteudos()) {
                     if (c->getId() == idConteudoRemover) {

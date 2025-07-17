@@ -47,6 +47,7 @@ class Conteudo{
         // Métodos
         virtual void exibir() const;
         void addReview(Review* review);
+        void removerReview(Review* review);
         void exibirReviews() const;
 
 };

@@ -47,5 +47,7 @@ class User{
         void removerPlaylistPorId(int idPlaylist);
         const std::vector<Playlist*>& getPlaylists() const;
         Review* buscarReviewPorConteudo(Conteudo* conteudo) const;
+        Review* buscarReviewPorId(int reviewId);
+        void removerReview(Review* review);
         
 };

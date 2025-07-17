@@ -1,5 +1,6 @@
 #include "Conteudo.h"
 #include <vector>
+#include <algorithm>
 using namespace std;
 int Conteudo::proxId = 1;
 
@@ -91,5 +92,14 @@ void Conteudo::exibirReviews() const{
     for (const auto& review : reviews){
         review->exibirDetalhes();
         cout << "--------------------------" << endl;
+    }
+}
+
+
+
+void Conteudo::removerReview(Review* review) {
+    auto it = std::find(reviews.begin(), reviews.end(), review);
+    if (it != reviews.end()) {
+        reviews.erase(it);
     }
 }

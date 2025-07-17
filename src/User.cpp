@@ -7,6 +7,7 @@
 #include "Conteudo.h"
 #include "Utils.h"
 #include <iostream>
+#include <algorithm>
 
 
 
@@ -100,4 +101,20 @@ void User::removerPlaylistPorId(int idPlaylist) {
 }
 const std::vector<Playlist*>& User::getPlaylists() const {
     return playlists;
+}
+
+Review* User::buscarReviewPorId(int reviewId) {
+    for (Review* r : reviews) {
+        if (r->getIdReview() == reviewId) {
+            return r;
+        }
+    }
+    return nullptr; // não encontrou
+}
+
+void User::removerReview(Review* review) {
+    auto it = std::find(reviews.begin(), reviews.end(), review);
+    if (it != reviews.end()) {
+        reviews.erase(it);
+    }
 }
