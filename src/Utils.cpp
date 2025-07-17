@@ -529,12 +529,46 @@ void menuAdmin(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
             cout << "Conteudo adicionado com sucesso!" << endl;
             break;
         }
-        case 2:
-        { // Remover conteudo
-            int id = lerNum("Digite o ID do conteudo a ser removido:");
-            catalogo.removerConteudo(id);
-            break;
-        }
+        case 2: {
+                cout << "\n--- Remover Conteudo ---" << endl;
+                int removerOpc = lerNumIntervalo("Remover por (1) ID ou (2) Titulo?", 1, 2);
+                
+                if (removerOpc == 1) { // Remover por ID
+                    int id = lerNum("Digite o ID do conteudo a ser removido:");
+                    catalogo.removerConteudo(id); 
+                } else { // Remover por Titulo
+                    string tituloBusca = lerString("Digite o titulo do conteudo a ser removido:");
+                    vector<Conteudo*> resultados = catalogo.buscarConteudosPorTitulo(tituloBusca);
+
+                    if (resultados.empty()) {
+                        cout << "Nenhum conteudo encontrado com o titulo '" << tituloBusca << "'." << endl;
+                    } else {
+                        cout << "Conteudos encontrados com o titulo '" << tituloBusca << "':" << endl;
+                        for (const auto& c : resultados) {
+                            cout << "ID: " << c->getId() << " | Titulo: " << c->getTitulo() << " | Genero: " << c->getGenero() << endl;
+                        }
+
+                        int idRemover = lerNum("Digite o ID do conteudo EXATO para remover (ou 0 para cancelar):");
+                        if (idRemover != 0) {
+                            bool idEncontradoNaBusca = false;
+                            for (const auto& c : resultados) {
+                                if (c->getId() == idRemover) {
+                                    idEncontradoNaBusca = true;
+                                    break;
+                                }
+                            }
+                            if (idEncontradoNaBusca) {
+                                catalogo.removerConteudo(idRemover);
+                            } else {
+                                cout << "ID nao corresponde a um conteudo encontrado na busca. Remocao cancelada." << endl;
+                            }
+                        } else {
+                            cout << "Remocao por titulo cancelada." << endl;
+                        }
+                    }
+                }
+                break;
+            }
         case 3:
         { // Adicionar usuario
             cadastrarUsuario(usuarios);
