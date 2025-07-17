@@ -5,7 +5,7 @@
 #include <vector>
 #include <limits>
 #include <memory>
-
+#include <sstream>
 #include "Catalogo.h"
 #include "User.h"
 #include "Plano.h"
@@ -47,38 +47,38 @@ void cadastrarUsuario(std::vector<std::unique_ptr<User>>& usuarios);
 //Funções template
 
 template <typename T>
-T lerValor(string msg) {
+T lerValor(std::string msg) {
     T valor;
-    string linha;
+    std::string linha;
     while (true) {
-        cout << msg << endl;
-        getline(cin, linha);
-        stringstream ss(linha);
+        std::cout << msg << std::endl;
+        std::getline(std::cin, linha);
+        std::istringstream ss(linha);  // use istringstream aqui
         if (ss >> valor) {
             char c;
             if (!(ss >> c))  // garante que não tenha resto na string
                 break;
         }
-        cout << "Entrada inválida! Por favor, insira um valor válido." << endl;
+        std::cout << "Entrada inválida! Por favor, insira um valor válido." << std::endl;
     }
     return valor;
 }
 
 template <typename T>
-T lerValorIntervalo(string msg, T min, T max) {
+T lerValorIntervalo(std::string msg, T min, T max) {
     T valor;
     while (true) {
         try {
             valor = lerValor<T>(msg);
             if (valor < min || valor > max) {
-                throw runtime_error(
+                throw std::runtime_error(
                     "Entrada invalida, o numero precisa estar no intervalo (" +
-                    to_string(min) + " a " + to_string(max) + ")."
+                    std::to_string(min) + " a " + std::to_string(max) + ")."
                 );
             }
             return valor;
-        } catch (const runtime_error &e) {
-            cout << e.what() << endl;
+        } catch (const std::runtime_error &e) {
+            std::cout << e.what() << std::endl;
         }
     }
 }

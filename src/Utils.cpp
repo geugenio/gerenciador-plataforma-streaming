@@ -3,7 +3,7 @@
 #include <memory>
 #include <algorithm>
 #include <stdexcept>
-#include <sstream>
+
 
 
 string lerString(string msg)
@@ -375,7 +375,7 @@ void menuUser(User &usuario, Catalogo &catalogo)
             for (const auto &c : catalogo.getConteudos())
             {
                 c->exibir();
-                cout << "-----\n";
+                cout << "----------------------\n" << endl;
             }
             break;
         }
@@ -386,7 +386,7 @@ void menuUser(User &usuario, Catalogo &catalogo)
             for (const auto &c : resultados)
             {
                 c->exibir();
-                cout << "-----\n";
+                cout << "---------------------\n" << endl;
             }
             break;
         }
@@ -472,6 +472,7 @@ void menuAdmin(Catalogo &catalogo, vector<unique_ptr<User>> &usuarios)
         case 1:
         { // Adicionar conteudo
             int tipo = lerValorIntervalo<int>("Adicionar (1) Filme ou (2) Serie?", 1, 2);
+            string titulo = lerString("Titulo:");
             string sinopse = lerString("Sinopse:");
             string diretor = lerString("Diretor:");
             string genero = lerString("Genero:");
