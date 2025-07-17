@@ -18,6 +18,7 @@ class Playlist{
         Playlist(std::string nome, User* criador);
         void adicionarConteudo(Conteudo* conteudo);
         void removerConteudo(Conteudo* conteudo);
+        void setNome(const std::string& novoNome);
 
         std::string getNome() const;
         std::vector<Conteudo*> getConteudos() const;
